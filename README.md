@@ -38,6 +38,8 @@ With several pages and wide range of products, this website will be a perfect de
 
 
 ## Contact me
-1995sirohis@gmail.com
-[LinkedIn](linkedin.com/in/jitesh-sirohi-ba4636136)
+1995sirohis@gmail.com <br/>
+
+[LinkedIn](linkedin.com/in/jitesh-sirohi-ba4636136) <br/>
+
 [Github](https://github.com/jitesh-95)
