@@ -10,22 +10,24 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
-import { MdAccountCircle } from "react-icons/md";
+import { HiOutlineArrowSmDown } from "react-icons/hi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { FiHeart, FiUser } from "react-icons/fi";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogin = () => {
-    console.log("login");
+    // console.log("login");
     // if (isAuth) {
     //   // logout();
     // } else {
-    //   navigate("/login");
+    navigate("/login");
     // }
   };
 
@@ -53,10 +55,11 @@ const Navbar = () => {
             src="logo.png"
           />
         </Link>
-        <Menu>
+        <Menu isOpen={isOpen}>
           <MenuButton
-            fontWeight={600}
-            _hover={{ borderBottom: "2px solid" }}
+            onMouseEnter={onOpen}
+            onMouseLeave={onClose}
+            // _hover={{ borderBottom: "2px solid" }}
             transition="300ms"
             fontSize={{
               base: "0.7rem",
@@ -66,9 +69,14 @@ const Navbar = () => {
               xl: "1rem",
             }}
           >
-            SHOP
+            SHOP{" "}
+            {
+              <HiOutlineArrowSmDown
+                style={{ display: "inline-block", marginLeft: "-5px" }}
+              />
+            }
           </MenuButton>
-          <MenuList>
+          <MenuList mt="-10px" onMouseLeave={onClose} onMouseEnter={onOpen}>
             <Link to="/mens">
               <MenuItem _hover={{ bg: "#A0AEC0", fontWeight: "bold" }}>
                 Men
@@ -83,7 +91,6 @@ const Navbar = () => {
         </Menu>
         <Link to="/aboutus">
           <Text
-            fontWeight={600}
             _hover={{ borderBottom: "2px solid" }}
             transition="300ms"
             fontSize={{

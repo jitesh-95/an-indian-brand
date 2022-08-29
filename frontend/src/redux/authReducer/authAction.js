@@ -1,7 +1,7 @@
 import {
-  CHECK_REGISTER_USER_ERROR,
-  CHECK_REGISTER_USER_REQUEST,
-  CHECK_REGISTER_USER_SUCCESS,
+  LOGIN_ERROR,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
   LOGOUT,
   SIGNUP_ERROR,
   SIGNUP_REQUEST,
@@ -12,7 +12,7 @@ import axios from "axios";
 export const register = (payload) => (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   return axios
-    .post("https://near1499server.herokuapp.com/users", payload, {
+    .post("http://localhost:8080/user/register", payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
@@ -21,16 +21,16 @@ export const register = (payload) => (dispatch) => {
     .catch((e) => dispatch({ type: SIGNUP_ERROR, payload: e }));
 };
 
-export const checkUser = () => (dispatch) => {
-  dispatch({ type: CHECK_REGISTER_USER_REQUEST });
+export const login = (payload) => (dispatch) => {
+  dispatch({ type: LOGIN_REQUEST });
   return axios
-    .get(`https://near1499server.herokuapp.com/users`)
-    .then((r) =>
-      dispatch({ type: CHECK_REGISTER_USER_SUCCESS, payload: r.data })
-    )
-    .catch((err) =>
-      dispatch({ type: CHECK_REGISTER_USER_ERROR, payload: err })
-    );
+    .post("http://localhost:8080/user/login", payload, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    .then((r) => dispatch({ type: LOGIN_SUCCESS, payload: r }))
+    .catch((e) => dispatch({ type: LOGIN_ERROR, payload: e }));
 };
 
 export const logout = () => (dispatch) => {

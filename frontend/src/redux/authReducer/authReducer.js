@@ -1,20 +1,19 @@
 import {
-  CHECK_REGISTER_USER_ERROR,
-  CHECK_REGISTER_USER_REQUEST,
-  CHECK_REGISTER_USER_SUCCESS,
+  LOGIN_ERROR,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
   LOGOUT,
   SIGNUP_ERROR,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
 } from "./authActionTypes";
 
-let Token = localStorage.getItem("token");
+let Token = localStorage.getItem("indianBrandToken");
 const initialState = {
   isLoading: false,
   isError: false,
   token: Token ? Token : "",
   isAuth: Token ? true : false,
-  userData: [],
 };
 
 export const authReducer = (state = initialState, { type, payload }) => {
@@ -28,21 +27,30 @@ export const authReducer = (state = initialState, { type, payload }) => {
     case SIGNUP_ERROR: {
       return { ...state, isLoading: false };
     }
-    //logout
-    case LOGOUT: {
-      localStorage.removeItem("token", payload);
-      return { ...state, isLoading: false, token: "", isAuth: false };
-    }
 
-    //checkuser
-    case CHECK_REGISTER_USER_REQUEST: {
+    //login
+    case LOGIN_REQUEST: {
       return { ...state, isLoading: true };
     }
-    case CHECK_REGISTER_USER_SUCCESS: {
-      return { ...state, isLoading: false, userData: payload };
+    case LOGIN_SUCCESS: {
+      if (payload.data.response === true) {
+        localStorage.setItem("indianBrandToken", payload.data.token);
+
+        return {
+          ...state,
+          isLoading: false,
+          isAuth: true,
+          token: payload.data.token,
+        };
+      }
     }
-    case CHECK_REGISTER_USER_ERROR: {
-      return { ...state, isError: true, isLoading: false };
+    case LOGIN_ERROR: {
+      return { ...state, isLoading: false, isAuth: false, isError: true };
+    }
+    //logout
+    case LOGOUT: {
+      localStorage.removeItem("indianBrandToken", payload);
+      return { ...state, isLoading: false, token: "", isAuth: false };
     }
 
     default:

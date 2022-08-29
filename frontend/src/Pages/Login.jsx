@@ -1,3 +1,4 @@
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Box,
@@ -11,39 +12,61 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  InputGroup,
+  InputRightElement,
+  Center,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-
-import LoginButtons from "../components/LoginButtons";
+import { FcGoogle } from "react-icons/fc";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { login } from "../redux/authReducer/authAction";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const isLoading = useSelector((state) => state.authReducer.isLoading);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form, setForm] = useState({});
-  // const { login } = useContext(AuthContext);
-  const toast = useToast();
+  const [exist, setExist] = useState(false);
+  const [notFilled, setNotFilled] = useState({ email: false, password: false });
+  const { state } = useLocation();
 
   const handleChange = (e) => {
     let { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    setExist(false);
+    setNotFilled({ email: false, password: false });
   };
 
-  const handleSubmit = (e) => {
-    if (form.email && form.password) {
-      // login();
-    } else {
-      toast({
-        title: "Something Went Wrong.",
-        description: "Please try again.",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+  const handleSubmit = () => {
+    if (!form.email) {
+      return setNotFilled({ email: true });
     }
+    if (!form.password) {
+      return setNotFilled({ password: true });
+    }
+    dispatch(login(form)).then((r) => {
+      if (r.payload.data.response === true) {
+        const comingFrom = state?.from?.pathname || "/";
+        navigate(comingFrom, { replace: true });
+        return setExist(false);
+      } else {
+        setExist(true);
+        return setNotFilled({ email: true, password: true });
+      }
+    });
   };
 
   return (
-    <div>
-      <Flex bg={useColorModeValue("gray.50", "gray.800")}>
+    <Box
+      position="relative"
+      top="65"
+      bg={useColorModeValue("gray.50", "gray.800")}
+      pb="10rem"
+    >
+      <Flex>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"}>Sign in to your account</Heading>
@@ -58,18 +81,44 @@ export default function Login() {
             p={8}
           >
             <Stack spacing={4}>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" name="email" onChange={handleChange} />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Password</FormLabel>
                 <Input
-                  type="password"
-                  name="password"
+                  type="email"
+                  name="email"
+                  isInvalid={notFilled.email}
                   onChange={handleChange}
                 />
               </FormControl>
+              <FormControl isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    isInvalid={notFilled.password}
+                    onChange={handleChange}
+                  />
+                  <InputRightElement h={"full"}>
+                    <Button
+                      variant={"ghost"}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Box
+                fontSize="0.9rem"
+                color="red"
+                textAlign="center"
+                display={exist ? "block" : "none"}
+              >
+                <Text>*Invalid Credentials!</Text>
+              </Box>
               <Stack spacing={10}>
                 <Stack
                   direction={{ base: "column", sm: "row" }}
@@ -91,6 +140,7 @@ export default function Login() {
                   </span>
                 </Stack>
                 <Button
+                  isLoading={isLoading}
                   onClick={handleSubmit}
                   bg={"blue.400"}
                   color={"white"}
@@ -101,11 +151,15 @@ export default function Login() {
                   Sign in
                 </Button>
               </Stack>
+              <Button w={"full"} variant={"outline"} leftIcon={<FcGoogle />}>
+                <Center>
+                  <Text>Sign in with Google</Text>
+                </Center>
+              </Button>
             </Stack>
           </Box>
         </Stack>
       </Flex>
-      <LoginButtons />
-    </div>
+    </Box>
   );
 }

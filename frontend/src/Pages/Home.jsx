@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Faq from "../components/Faq";
-import { Box, Button, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 // import axios from "axios";
 
 const Home = () => {
@@ -30,10 +30,22 @@ const Home = () => {
     <Box w="100%" position="relative" top="65" pb="4rem">
       <Box>
         <Image w="100%" src="../.././assets/heroBanner1.webp" />
+        <Image w="100%" src="../.././assets/heroBanner2.webp" />
       </Box>
 
-      <Flex
+      <Box
         mt={{ base: "3rem", sm: "5rem", md: "5rem", lg: "8rem", xl: "10rem" }}
+        textAlign="center"
+        fontSize="2rem"
+        fontWeight={700}
+        letterSpacing={2}
+        fontStyle="italic"
+        color="telegram.900"
+      >
+        <Text>POPULAR RIGHT NOW</Text>
+      </Box>
+      <Flex
+        mt="3rem"
         align="center"
         justify="center"
         gap={[10, 10, 8, 8, 10]}
@@ -65,10 +77,12 @@ const Home = () => {
             onClick={mensPage}
             position="absolute"
             bottom="0"
+            borderRadius={0}
             w="100%"
-            bg="#1A202C"
-            color="white"
-            _hover={{ bg: "black" }}
+            bg="rgba(255,255,255,0.01)"
+            backdropFilter="blur(10px)"
+            variant="outline"
+            _hover={{ bg: "black", color: "white" }}
           >
             View All
           </Button>
@@ -92,16 +106,49 @@ const Home = () => {
             position="absolute"
             onClick={womensPage}
             bottom="0"
+            borderRadius={0}
             w="100%"
-            bg="#1A202C "
-            color="white"
-            _hover={{ bg: "black" }}
+            bg="rgba(255,255,255,0.01)"
+            backdropFilter="blur(10px)"
+            variant="outline"
+            _hover={{ bg: "black", color: "white" }}
           >
             View All
           </Button>
         </Box>
       </Flex>
 
+      {/* free shipping  */}
+      <Box
+        bgGradient="radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(121,9,38,0.7934524151457458) 35%, rgba(0,212,255,1) 100%)"
+        bgClip="border-box"
+        textAlign="center"
+        color="white"
+        m="4rem 0"
+        p="2rem 0"
+      >
+        <Box mb="1.5rem">
+          <Text
+            fontWeight={700}
+            fontSize="1.5rem"
+            letterSpacing={1}
+            display="inline-block"
+            mr="0.5rem"
+          >
+            An Indian Brand{" "}
+          </Text>
+          <Text fontSize="1.5rem" display="inline-block">
+            UNLOCKED
+          </Text>
+        </Box>
+        <Heading w="20rem" m="auto" mb="1rem">
+          FREE SHIPPING, EXCLUSIVES & MORE
+        </Heading>
+        <Text w="30rem" m="auto" fontSize="1.2rem" lineHeight={1.5}>
+          You kick it hard with style and fitness. Now get rewarded for it with
+          a loyalty program that gets you.
+        </Text>
+      </Box>
       {/* faq */}
       <Faq />
     </Box>
