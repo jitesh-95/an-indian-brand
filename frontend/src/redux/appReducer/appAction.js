@@ -17,28 +17,30 @@ import {
 } from "./appActionTypes";
 import axios from "axios";
 
-const options = {
-  method: "GET",
-  url: "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list",
-  params: {
-    country: "in",
-    lang: "en",
-    currentpage: "0",
-    pagesize: "30",
-    categories: "men",
-    concepts: "H&M MAN",
-  },
-  headers: {
-    "X-RapidAPI-Key": "964eca316dmshc0386a6cfa607fcp1c8ba4jsn4ceac7c28e99",
-    "X-RapidAPI-Host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-  },
-};
+// const options = {
+//   method: "GET",
+//   url: "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list",
+//   params: {
+//     country: "in",
+//     lang: "en",
+//     currentpage: "0",
+//     pagesize: "30",
+//     categories: "men",
+//     concepts: "H&M MAN",
+//   },
+//   headers: {
+//     "X-RapidAPI-Key": process.env.API_KEY,
+//     "X-RapidAPI-Host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
+//   },
+// };
 
 // axios.request(options).then(function (response) {
 // 	console.log(response.data);
 // }).catch(function (error) {
 // 	console.error(error);
 // });
+
+const API_KEY = process.env.API_KEY;
 
 export const getProducts = (cate, page) => (dispatch) => {
   dispatch({ type: GET_PRODUCTS_REQUEST });
@@ -53,7 +55,7 @@ export const getProducts = (cate, page) => (dispatch) => {
         concepts: "H&M MAN",
       },
       headers: {
-        "X-RapidAPI-Key": "964eca316dmshc0386a6cfa607fcp1c8ba4jsn4ceac7c28e99",
+        "X-RapidAPI-Key": API_KEY,
         "X-RapidAPI-Host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
       },
     })
