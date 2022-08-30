@@ -14,12 +14,12 @@ const CardsAdd = () => {
       }}
       gap={4}
       p={{
-        base: "1rem 1rem 15rem 1rem",
-        sm: "1rem 1rem 15rem 1rem",
-        md: "1rem 0.5rem 15rem 0.5rem",
-        lg: "1rem 6rem 15rem 6rem",
-        xl: "1rem 8rem 15rem 8rem",
-        "2xl": "1rem 8rem 15rem 8rem",
+        base: "1rem 1rem 3rem 1rem",
+        sm: "1rem 1rem 3rem 1rem",
+        md: "1rem 0.5rem 3rem 0.5rem",
+        lg: "1rem 6rem 3rem 6rem",
+        xl: "1rem 8rem 3rem 8rem",
+        "2xl": "1rem 8rem 3rem 8rem",
       }}
     >
       <GridItem>

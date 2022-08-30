@@ -1,22 +1,26 @@
-import {} from "./appActionTypes";
+import {
+  GET_PRODUCTS_FAILURE,
+  GET_PRODUCTS_REQUEST,
+  GET_PRODUCTS_SUCCESS,
+} from "./appActionTypes";
 
 const initialState = {
   isLoading: false,
   isError: false,
-  tasks: [],
+  mensProducts: [],
 };
 
 export const appReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    // case GET_TASK_REQUEST: {
-    //   return { ...state, isLoading: true };
-    // }
-    // case GET_TASK_SUCCESS: {
-    //   return { ...state, isLoading: false, tasks: payload };
-    // }
-    // case GET_TASK_FAILURE: {
-    //   return { ...state, isLoading: false, isError: true };
-    // }
+    case GET_PRODUCTS_REQUEST: {
+      return { ...state, isLoading: true };
+    }
+    case GET_PRODUCTS_SUCCESS: {
+      return { ...state, isLoading: false, mensProducts: payload.results };
+    }
+    case GET_PRODUCTS_FAILURE: {
+      return { ...state, isLoading: false, isError: true };
+    }
     default:
       return state;
   }

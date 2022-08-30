@@ -1,25 +1,44 @@
-import { Box, Button, Center, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Grid,
+  Image,
+  Skeleton,
+  SkeletonText,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../redux/appReducer/appAction";
 import CardsAdd from "../components/CardsAdd";
+import ProductsLayout from "../components/ProductsLayout";
+import { Dna } from "react-loader-spinner";
 
 const Mens = () => {
-  const [products, setProducts] = useState([]);
+  const mensProducts = useSelector((state) => state.appReducer.mensProducts);
+  const isLoading = useSelector((state) => state.appReducer.isLoading);
+  // console.log(isLoading);
+  // const [myLoading, setMyLoading] = useState(isLoading);
   const [totalPage, setTotalPage] = useState(0);
   const [totalResults, setTotalResults] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (products.length === 0) {
-      dispatch(getProducts()).then((r) => {
-        setProducts(r.payload.results);
-        setTotalResults(r.payload.pagination.totalNumberOfResults);
-        setTotalPage(r.payload.pagination.numberOfPages);
-        console.log(r.payload.results);
-      });
+    if (mensProducts.length === 0) {
+      dispatch(getProducts())
+        .then((r) => {
+          if (r.type === "GET_PRODUCTS_SUCCESS") {
+            setTotalResults(r.payload.pagination.totalNumberOfResults);
+            setTotalPage(r.payload.pagination.numberOfPages);
+            console.log(r.payload.results);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
   // setProducts(r.payload.results);
@@ -52,20 +71,54 @@ const Mens = () => {
         </Center>
       </Box>
       <CardsAdd />
-
-      <Box>
-        <Image src="../.././assets/freedelivery.jpg" alt="" />
-      </Box>
+      {mensProducts.length === 0 && (
+        <Flex w="100%" align="center" justify="center">
+          <Dna
+            visible={true}
+            height="50%"
+            width="50%"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          />
+        </Flex>
+      )}
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
+          xl: "repeat(4, 1fr)",
+          "2xl": "repeat(4, 1fr)",
+        }}
+        gap={4}
+        p={{
+          base: "1rem 1rem 10rem 1rem",
+          sm: "1rem 1rem 10rem 1rem",
+          md: "1rem 0.5rem 10rem 0.5rem",
+          lg: "1rem 6rem 10rem 6rem",
+          xl: "1rem 8rem 10rem 8rem",
+          "2xl": "1rem 8rem 10rem 8rem",
+        }}
+        top={70}
+        position="relative"
+      >
+        {mensProducts.length > 0 &&
+          mensProducts.map((item, index) => (
+            <ProductsLayout key={index} {...item} />
+          ))}
+      </Grid>
       <Box>
         <Button onClick={handlePrev}>
           <ArrowLeftIcon w={6} h={6} />
         </Button>
-        <Button
-          onClick={handleNext}
-          // className={total <= page * 12 ? "disable" : ""}
-        >
+        <Button onClick={handleNext}>
           <ArrowRightIcon w={6} h={6} />
         </Button>
+      </Box>
+      <Box>
+        <Image w="100%" src="../.././assets/freedelivery.jpg" alt="" />
       </Box>
     </Box>
   );

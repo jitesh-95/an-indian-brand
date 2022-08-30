@@ -40,8 +40,6 @@ import axios from "axios";
 // 	console.error(error);
 // });
 
-const API_KEY = process.env.API_KEY;
-
 export const getProducts = (cate, page) => (dispatch) => {
   dispatch({ type: GET_PRODUCTS_REQUEST });
   return axios
@@ -50,12 +48,12 @@ export const getProducts = (cate, page) => (dispatch) => {
         country: "in",
         lang: "en",
         currentpage: "0",
-        pagesize: "30",
+        pagesize: "20",
         categories: "men",
         concepts: "H&M MAN",
       },
       headers: {
-        "X-RapidAPI-Key": API_KEY,
+        "X-RapidAPI-Key": process.env.API_KEY,
         "X-RapidAPI-Host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
       },
     })
