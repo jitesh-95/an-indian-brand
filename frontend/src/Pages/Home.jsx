@@ -82,7 +82,8 @@ const Home = () => {
             bg="rgba(255,255,255,0.01)"
             backdropFilter="blur(10px)"
             variant="outline"
-            _hover={{ bg: "black", color: "white" }}
+            transition="500ms"
+            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
           >
             View All
           </Button>
@@ -111,7 +112,8 @@ const Home = () => {
             bg="rgba(255,255,255,0.01)"
             backdropFilter="blur(10px)"
             variant="outline"
-            _hover={{ bg: "black", color: "white" }}
+            transition="500ms"
+            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
           >
             View All
           </Button>

@@ -7,9 +7,16 @@ app.use(cors());
 const connection = require("./config");
 const Authentication = require("./middlewares/Authentication");
 const userRouter = require("./controllers/user.controller");
+const menRouter = require("./controllers/men.controller");
+const womenRouter = require("./controllers/women.controller");
+const kidsRouter = require("./controllers/kids.controller");
 
 app.use(express.json());
 app.use("/user", userRouter);
+app.use("/products", menRouter);
+app.use("/products", womenRouter);
+app.use("/products", kidsRouter);
+
 app.use(Authentication);
 
 const PORT = process.env.PORT;

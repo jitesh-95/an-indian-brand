@@ -16,7 +16,7 @@ const ProductsLayout = (item) => {
           _hover={{ transform: `scale(1.02)`, boxShadow: "xl" }}
         >
           <Box>
-            <Image w="100%" src={item.images[0].url} />
+            <Image w="100%" src={item.image} />
           </Box>
           <Text
             fontSize={["1rem", "1.1rem", "1rem", "1.1rem", "1.2rem"]}
@@ -28,8 +28,20 @@ const ProductsLayout = (item) => {
           >
             {item.name}
           </Text>
+          <Text
+            pl="0.5rem"
+            fontWeight={600}
+            fontSize="0.7rem"
+            mt="0.1rem"
+            bg="#4299E1"
+            color="white"
+            w="70%"
+            clipPath="polygon(92% 0, 100% 50%, 92% 100%, 0 100%, 2% 50%, 0 0)"
+          >
+            Fulfilled by <i>AN INDIAN BRAND</i>
+          </Text>
           <Flex justify="space-between" align="center" pt="0.5rem">
-            <Text color="#2C5282">{item.price.formattedValue}</Text>
+            <Text color="#2C5282">Rs.{item.price}</Text>
             <Flex gap={2}>
               <Button _hover={{ bg: "none" }} variant="ghost">
                 {<FiHeart fontSize="1.2rem" />}
@@ -39,15 +51,6 @@ const ProductsLayout = (item) => {
               </Button>
             </Flex>
           </Flex>
-          <Text
-            textAlign="center"
-            fontWeight={600}
-            fontSize="0.7rem"
-            mt="0.6rem"
-            color="#2B6CB0"
-          >
-            Fulfilled by <i>AN INDIAN BRAND</i>
-          </Text>
         </GridItem>
       </Link>
     </>

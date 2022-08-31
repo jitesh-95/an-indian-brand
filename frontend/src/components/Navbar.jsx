@@ -79,12 +79,17 @@ const Navbar = () => {
           <MenuList mt="-10px" onMouseLeave={onClose} onMouseEnter={onOpen}>
             <Link to="/mens">
               <MenuItem _hover={{ bg: "#A0AEC0", fontWeight: "bold" }}>
-                Men
+                MEN
               </MenuItem>
             </Link>
             <Link to="/womens">
               <MenuItem _hover={{ bg: "#A0AEC0", fontWeight: "bold" }}>
-                Women
+                WOMEN
+              </MenuItem>
+            </Link>
+            <Link to="/kids">
+              <MenuItem _hover={{ bg: "#A0AEC0", fontWeight: "bold" }}>
+                KIDS
               </MenuItem>
             </Link>
           </MenuList>

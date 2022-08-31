@@ -15,11 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CardsAdd from "../components/CardsAdd";
 import ProductsLayout from "../components/ProductsLayout";
 import { Dna } from "react-loader-spinner";
-import { getProductsMen } from "../redux/appReducer/menReducer/menAction";
+import { getProductsKids } from "../redux/appReducer/kidsReducer/kidsAction";
 
-const Mens = () => {
-  const allProducts = useSelector((state) => state.menReducer.menProducts);
-  const isLoading = useSelector((state) => state.menReducer.isLoading);
+const Kids = () => {
+  const allProducts = useSelector((state) => state.kidsReducer.kidsProducts);
+  const isLoading = useSelector((state) => state.kidsReducer.isLoading);
 
   const [totalPage, setTotalPage] = useState(0);
   const [totalResults, setTotalResults] = useState();
@@ -29,9 +29,9 @@ const Mens = () => {
   //calling one time
   useEffect(() => {
     if (allProducts.length === 0) {
-      dispatch(getProductsMen(0))
+      dispatch(getProductsKids(0))
         .then((r) => {
-          if (r.type === "GET_PRODUCTS_SUCCESS_MEN") {
+          if (r.type === "GET_PRODUCTS_SUCCESS_KIDS") {
             setTotalResults(r.payload.total);
           }
         })
@@ -124,4 +124,4 @@ const Mens = () => {
   );
 };
 
-export default Mens;
+export default Kids;
