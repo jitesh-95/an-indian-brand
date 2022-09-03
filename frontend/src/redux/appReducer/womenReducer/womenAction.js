@@ -8,7 +8,7 @@ import {
 export const getProductsWomen = (page) => (dispatch) => {
   dispatch({ type: GET_PRODUCTS_REQUEST_WOMEN });
   return axios
-    .get(`http://localhost:8080/products/women`)
+    .get(`http://localhost:8080/products/women?page=${page}`)
     .then((r) =>
       dispatch({ type: GET_PRODUCTS_SUCCESS_WOMEN, payload: r.data })
     )

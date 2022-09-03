@@ -1,35 +1,30 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Grid,
-  Image,
-  Skeleton,
-  SkeletonText,
-} from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Grid, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardsAdd from "../components/CardsAdd";
 import ProductsLayout from "../components/ProductsLayout";
 import { Dna } from "react-loader-spinner";
 import { getProductsKids } from "../redux/appReducer/kidsReducer/kidsAction";
+import { setItemSession } from "../utils/sessionStorage";
 
 const Kids = () => {
   const allProducts = useSelector((state) => state.kidsReducer.kidsProducts);
   const isLoading = useSelector((state) => state.kidsReducer.isLoading);
 
-  const [totalPage, setTotalPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlPage = searchParams.get("page");
+  const [page, setPage] = useState(+urlPage || 1);
   const [totalResults, setTotalResults] = useState();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   //calling one time
   useEffect(() => {
     if (allProducts.length === 0) {
-      dispatch(getProductsKids(0))
+      dispatch(getProductsKids(page))
         .then((r) => {
           if (r.type === "GET_PRODUCTS_SUCCESS_KIDS") {
             setTotalResults(r.payload.total);
@@ -41,26 +36,33 @@ const Kids = () => {
     }
   }, []);
 
-  // setProducts(r.payload.results);
-  // setTotal(r.headers["x-total-count"]);
+  // setting params
+  useEffect(() => {
+    setSearchParams({ page: page });
+    dispatch(getProductsKids(page));
+  }, [page]);
 
+  // console.log(page);
   const handleNext = () => {
-    // if (total > page * 12) {
-    //   setPage(page + 1);
-    // }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setPage(page + 1);
   };
+
   const handlePrev = () => {
-    // if (page > 1) {
-    //   setPage(page - 1);
-    // }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setPage(page - 1);
   };
 
   const handleCart = () => {
     navigate("/cart");
   };
 
+  const handleSingleProduct = (item) => {
+    setItemSession("singleProduct", item);
+  };
+
   return (
-    <Box position="relative" top="65" pb="10rem">
+    <Box position="relative" top="65" mb="10rem">
       <Box>
         <Center>
           <Image
@@ -75,8 +77,8 @@ const Kids = () => {
         <Flex w="100%" align="center" justify="center">
           <Dna
             visible={true}
-            height="50%"
-            width="50%"
+            height="40%"
+            width="40%"
             ariaLabel="dna-loading"
             wrapperStyle={{}}
             wrapperClass="dna-wrapper"
@@ -106,17 +108,31 @@ const Kids = () => {
       >
         {allProducts.length > 0 &&
           allProducts.map((item) => (
-            <ProductsLayout key={item._id} {...item} />
+            <ProductsLayout
+              key={item._id}
+              {...item}
+              onClick={() => handleSingleProduct(item)}
+            />
           ))}
       </Grid>
-      <Box>
-        <Button onClick={handlePrev}>
-          <ArrowLeftIcon w={6} h={6} />
+      <Flex
+        justify="space-between"
+        p={{
+          base: "0 1rem",
+          sm: "0 1rem",
+          md: "0 0.5rem",
+          lg: "0 6rem",
+          xl: "0 8rem",
+          "2xl": "0 8rem",
+        }}
+      >
+        <Button onClick={handlePrev} disabled={page === 1}>
+          <HiArrowNarrowLeft fontSize="1.3rem" />
         </Button>
-        <Button onClick={handleNext}>
-          <ArrowRightIcon w={6} h={6} />
+        <Button onClick={handleNext} disabled={totalResults <= page * 20}>
+          <HiArrowNarrowRight fontSize="1.3rem" />
         </Button>
-      </Box>
+      </Flex>
       <Box>
         <Image w="100%" src="../.././assets/freedelivery.jpg" alt="" />
       </Box>

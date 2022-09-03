@@ -3,10 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
-const ProductsLayout = (item) => {
+const ProductsLayout = ({ image, name, price, _id, onClick }) => {
   return (
     <>
-      <Link to="#">
+      <Link to={`/description/${_id}`} onClick={onClick}>
         <GridItem
           p="0.6rem 0.6rem 1rem"
           boxShadow="md"
@@ -16,7 +16,7 @@ const ProductsLayout = (item) => {
           _hover={{ transform: `scale(1.02)`, boxShadow: "xl" }}
         >
           <Box>
-            <Image w="100%" src={item.image} />
+            <Image w="100%" src={image} />
           </Box>
           <Text
             fontSize={["1rem", "1.1rem", "1rem", "1.1rem", "1.2rem"]}
@@ -26,7 +26,7 @@ const ProductsLayout = (item) => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            {item.name}
+            {name}
           </Text>
           <Text
             pl="0.5rem"
@@ -41,7 +41,7 @@ const ProductsLayout = (item) => {
             Fulfilled by <i>AN INDIAN BRAND</i>
           </Text>
           <Flex justify="space-between" align="center" pt="0.5rem">
-            <Text color="#2C5282">Rs.{item.price}</Text>
+            <Text color="#2C5282">₹{price}</Text>
             <Flex gap={2}>
               <Button _hover={{ bg: "none" }} variant="ghost">
                 {<FiHeart fontSize="1.2rem" />}

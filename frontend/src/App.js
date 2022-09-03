@@ -13,6 +13,7 @@ import RequireAuth from "./hoc/RequireAuth";
 import ContactUs from "./Pages/ContactUs";
 import ScrollToTop from "./components/ScrollToTop";
 import Kids from "./Pages/Kids";
+import Description from "./Pages/Description";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/mens" element={<Mens />} />
         <Route path="/womens" element={<Womens />} />
         <Route path="/kids" element={<Kids />} />
+        <Route path="/description/:ProductId" element={<Description />} />
         <Route path="/contactus" element={<ContactUs />} />
       </Routes>
       <Footer />

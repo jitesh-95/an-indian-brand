@@ -52,7 +52,7 @@ const Navbar = () => {
         <Link to="/">
           <Image
             h={["3rem", "3rem", "4rem", "4rem", "4rem", "4rem"]}
-            src="logo.png"
+            src="../.././logo.png"
           />
         </Link>
         <Menu isOpen={isOpen}>
