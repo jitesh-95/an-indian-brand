@@ -1,22 +1,22 @@
 import {
   Box,
   Button,
-  Center,
   Flex,
   Grid,
+  Heading,
   Image,
-  Skeleton,
-  SkeletonText,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import CardsAdd from "../components/CardsAdd";
-import ProductsLayout from "../components/ProductsLayout";
 import { Dna } from "react-loader-spinner";
+
+import ProductsLayout from "../components/ProductsLayout";
 import { getProductsMen } from "../redux/appReducer/menReducer/menAction";
 import { setItemSession } from "../utils/sessionStorage";
+import FilterSort from "../components/FilterSort";
 
 const Mens = () => {
   const allProducts = useSelector((state) => state.menReducer.menProducts);
@@ -24,34 +24,34 @@ const Mens = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlPage = searchParams.get("page");
+  const urlSort = searchParams.get("sortBy");
   const [page, setPage] = useState(+urlPage || 1);
   const [totalResults, setTotalResults] = useState();
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   // console.log(page);
   //calling one time
   useEffect(() => {
-    if (allProducts.length === 0) {
-      dispatch(getProductsMen(page))
-        .then((r) => {
-          if (r.type === "GET_PRODUCTS_SUCCESS_MEN") {
-            setTotalResults(r.payload.total);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
-
+    dispatch(getProductsMen(page, urlSort))
+      .then((r) => {
+        if (r.type === "GET_PRODUCTS_SUCCESS_MEN") {
+          setTotalResults(r.payload.total);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [page, urlSort]);
+  // console.log(allProducts);
   // setting params
   useEffect(() => {
-    setSearchParams({ page: page });
-    dispatch(getProductsMen(page));
-  }, [page]);
+    const params = {};
+    page && (params.page = page);
+    urlSort && (params.sortBy = urlSort);
 
-  // console.log(page);
+    setSearchParams(params);
+  }, [urlSort, page]);
+
   const handleNext = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setPage(page + 1);
@@ -62,26 +62,12 @@ const Mens = () => {
     setPage(page - 1);
   };
 
-  const handleCart = () => {
-    navigate("/cart");
-  };
-
   const handleSingleProduct = (item) => {
     setItemSession("singleProduct", item);
   };
 
   return (
     <Box position="relative" top="65" mb="10rem">
-      <Box>
-        <Center>
-          <Image
-            w={["80%", "75%", "70%", "65%", "60%"]}
-            src="../.././assets/mens_banner.jpg"
-            alt=""
-          />
-        </Center>
-      </Box>
-      <CardsAdd />
       {isLoading ? (
         <Flex w="100%" align="center" justify="center">
           <Dna
@@ -95,6 +81,31 @@ const Mens = () => {
         </Flex>
       ) : (
         <>
+          <Heading
+            fontWeight={600}
+            bg="blackAlpha.300"
+            color="gray.800"
+            fontSize={["1.2rem", "1.5rem", "2rem", "2rem"]}
+            p={{
+              base: "0.2rem 1rem",
+              sm: "0.2rem 1rem",
+              md: "0.3rem 0.5rem",
+              lg: "0.3rem 6rem",
+              xl: "0.3rem 8rem",
+              "2xl": "0.3rem 8rem",
+            }}
+          >
+            ALL MEN'S PRODUCTS
+            <Text
+              display="inline-block"
+              fontSize="1.1rem"
+              ml="0.5rem"
+              fontWeight={400}
+            >
+              /{totalResults} Products
+            </Text>
+          </Heading>
+          <FilterSort />
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",
@@ -106,14 +117,13 @@ const Mens = () => {
             }}
             gap={4}
             p={{
-              base: "1rem 1rem 10rem 1rem",
-              sm: "1rem 1rem 10rem 1rem",
-              md: "1rem 0.5rem 10rem 0.5rem",
-              lg: "1rem 6rem 10rem 6rem",
-              xl: "1rem 8rem 10rem 8rem",
-              "2xl": "1rem 8rem 10rem 8rem",
+              base: "1rem 1rem 5rem 1rem",
+              sm: "1rem 1rem 5rem 1rem",
+              md: "1rem 0.5rem 5rem 0.5rem",
+              lg: "1rem 6rem 5rem 6rem",
+              xl: "1rem 8rem 5rem 8rem",
+              "2xl": "1rem 8rem 5rem 8rem",
             }}
-            top={70}
             position="relative"
           >
             {allProducts.length > 0 &&

@@ -41,15 +41,19 @@ const ProductsLayout = ({ image, name, price, _id, onClick }) => {
             Fulfilled by <i>AN INDIAN BRAND</i>
           </Text>
           <Flex justify="space-between" align="center" pt="0.5rem">
-            <Text color="#2C5282">₹{price}</Text>
-            <Flex gap={2}>
-              <Button _hover={{ bg: "none" }} variant="ghost">
-                {<FiHeart fontSize="1.2rem" />}
-              </Button>
-              <Button _hover={{ bg: "#D69E2E" }} variant="outline" bg="#ECC94B">
-                {<FiShoppingCart fontSize="1.2rem" />}
-              </Button>
-            </Flex>
+            <Text color="#2C5282">
+              ₹{price}{" "}
+              <span
+                style={{
+                  textDecoration: "line-through",
+                  color: "black",
+                  marginLeft: "0.2rem",
+                  fontSize: "0.8rem",
+                }}
+              >
+                ₹{price + 100}
+              </span>
+            </Text>
           </Flex>
         </GridItem>
       </Link>

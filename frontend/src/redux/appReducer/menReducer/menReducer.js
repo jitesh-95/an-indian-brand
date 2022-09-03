@@ -21,6 +21,7 @@ export const menReducer = (state = initialState, { type, payload }) => {
     case GET_PRODUCTS_FAILURE_MEN: {
       return { ...state, isLoading: false, isError: true };
     }
+
     default:
       return state;
   }
