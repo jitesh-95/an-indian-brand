@@ -38,6 +38,7 @@ const FilterSort = () => {
         variant="filled"
         value={sortBy}
         onChange={handleSort}
+        fontWeight={600}
       >
         <option value="HighToLow">Price High To Low</option>
         <option value="LowToHigh">Price Low To High</option>

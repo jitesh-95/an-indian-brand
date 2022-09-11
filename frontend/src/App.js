@@ -28,9 +28,9 @@ function App() {
         <Route
           path="/cart"
           element={
-            // <RequireAuth>
-            <Cart />
-            // </RequireAuth>
+            <RequireAuth>
+              <Cart />
+            </RequireAuth>
           }
         />
         <Route path="/mens" element={<Mens />} />

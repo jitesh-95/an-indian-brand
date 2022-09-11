@@ -7,16 +7,88 @@ import {
   Image,
   Select,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { getItemSession } from "../utils/sessionStorage";
 import { Dna } from "react-loader-spinner";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { MdDone } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { addProductsToCart } from "../redux/appReducer/cartReducer/cartAction";
+// import { setItemLocal } from "../utils/localStorage";
 
 const Description = () => {
+  const isAuth = useSelector((state) => state.authReducer.isAuth);
+  const isLoading = useSelector((state) => state.cartReducer.isLoading);
+  const toast = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
   const product = getItemSession("singleProduct");
-  const { code, name, image, price, _id, sizes } = product;
+  const { code, name, image, price, _id, sizes, category } = product;
+  const [size, setSize] = useState("");
+  const [quantity, setQuantity] = useState();
+  const [toggle, setToggle] = useState(false);
+
+  // adding to cart
+  const handleCart = () => {
+    if (!isAuth) {
+      toast({
+        title: "Please login first!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+      navigate("/login", { state: { from: location.pathname } });
+      return;
+    }
+    if (!size || !quantity) {
+      toast({
+        title: "Please select the details first!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
+    const item = {
+      name: name,
+      image: image,
+      price: price,
+      size: size,
+      quantity: +quantity,
+      category: category,
+    };
+    dispatch(addProductsToCart(item)).then((r) => {
+      if (r.payload.response === false) {
+        return toast({
+          title: "Item is already added!",
+          status: "info",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+      toast({
+        title: "Congratulations 🎉",
+        description: "Item added successfully",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setToggle(true);
+      setTimeout(() => {
+        setToggle(false);
+      }, 2000);
+    });
+  };
 
   return (
     <>
@@ -103,6 +175,7 @@ const Description = () => {
                 size="sm"
                 maxW="10rem"
                 mb="1.5rem"
+                onChange={(e) => setSize(e.target.value)}
               >
                 {sizes.length > 0 &&
                   sizes.map((item, index) => (
@@ -111,6 +184,21 @@ const Description = () => {
                     </option>
                   ))}
               </Select>
+              <Text fontSize="1.3rem" fontWeight={700}>
+                Quantity:
+              </Text>
+              <Select
+                placeholder="Select Quantity"
+                size="sm"
+                maxW="10rem"
+                mb="1.5rem"
+                onChange={(e) => setQuantity(e.target.value)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </Select>
 
               <Flex
                 direction="column"
@@ -118,13 +206,19 @@ const Description = () => {
                 gap={4}
               >
                 <Button
+                  isLoading={isLoading}
                   size="lg"
                   bg="#ECC94B"
                   transition="500ms"
                   _hover={{ bg: "#D69E2E", letterSpacing: "1px" }}
                   borderRadius={0}
+                  onClick={handleCart}
                 >
-                  Add to Cart <Icon as={AiOutlineShoppingCart} ml="0.6rem" />
+                  {toggle ? "Added" : "Add to Cart"}
+                  <Icon
+                    as={toggle ? MdDone : AiOutlineShoppingCart}
+                    ml="0.6rem"
+                  />
                 </Button>
                 <Button
                   size="lg"

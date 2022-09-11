@@ -9,6 +9,7 @@ import { authReducer } from "./authReducer/authReducer";
 import { menReducer } from "./appReducer/menReducer/menReducer";
 import { womenReducer } from "./appReducer/womenReducer/womenReducer";
 import { kidsReducer } from "./appReducer/kidsReducer/kidsReducer";
+import { cartReducer } from "./appReducer/cartReducer/cartReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -17,6 +18,7 @@ const rootReducers = combineReducers({
   menReducer,
   womenReducer,
   kidsReducer,
+  cartReducer,
 });
 
 export const store = legacy_createStore(

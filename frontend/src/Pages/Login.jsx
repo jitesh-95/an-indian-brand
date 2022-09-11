@@ -49,7 +49,7 @@ export default function Login() {
     }
     dispatch(login(form)).then((r) => {
       if (r.payload.data.response === true) {
-        const comingFrom = state?.from?.pathname || "/";
+        const comingFrom = state?.from || "/";
         navigate(comingFrom, { replace: true });
         return setExist(false);
       } else {

@@ -87,6 +87,7 @@ const Womens = () => {
             bg="blackAlpha.300"
             color="gray.800"
             fontSize={["1.2rem", "1.5rem", "2rem", "2rem"]}
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 15px 20px"
             p={{
               base: "0.2rem 1rem",
               sm: "0.2rem 1rem",
@@ -147,10 +148,18 @@ const Womens = () => {
               "2xl": "0 8rem",
             }}
           >
-            <Button onClick={handlePrev} disabled={page === 1}>
+            <Button
+              onClick={handlePrev}
+              disabled={page === 1}
+              colorScheme="blue"
+            >
               <HiArrowNarrowLeft fontSize="1.3rem" />
             </Button>
-            <Button onClick={handleNext} disabled={totalResults <= page * 20}>
+            <Button
+              onClick={handleNext}
+              disabled={totalResults <= page * 20}
+              colorScheme="blue"
+            >
               <HiArrowNarrowRight fontSize="1.3rem" />
             </Button>
           </Flex>

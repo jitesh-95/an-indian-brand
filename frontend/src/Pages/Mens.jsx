@@ -29,7 +29,6 @@ const Mens = () => {
   const [totalResults, setTotalResults] = useState();
 
   const dispatch = useDispatch();
-  // console.log(page);
   //calling one time
   useEffect(() => {
     dispatch(getProductsMen(page, urlSort))
@@ -42,7 +41,7 @@ const Mens = () => {
         console.log(err);
       });
   }, [page, urlSort]);
-  // console.log(allProducts);
+
   // setting params
   useEffect(() => {
     const params = {};
@@ -94,6 +93,7 @@ const Mens = () => {
               xl: "0.3rem 8rem",
               "2xl": "0.3rem 8rem",
             }}
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 15px 20px"
           >
             ALL MEN'S PRODUCTS
             <Text
@@ -146,10 +146,18 @@ const Mens = () => {
               "2xl": "0 8rem",
             }}
           >
-            <Button onClick={handlePrev} disabled={page === 1}>
+            <Button
+              onClick={handlePrev}
+              disabled={page === 1}
+              colorScheme="blue"
+            >
               <HiArrowNarrowLeft fontSize="1.3rem" />
             </Button>
-            <Button onClick={handleNext} disabled={totalResults <= page * 20}>
+            <Button
+              onClick={handleNext}
+              disabled={totalResults <= page * 20}
+              colorScheme="blue"
+            >
               <HiArrowNarrowRight fontSize="1.3rem" />
             </Button>
           </Flex>
