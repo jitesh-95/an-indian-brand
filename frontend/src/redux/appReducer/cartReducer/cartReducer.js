@@ -2,6 +2,9 @@ import {
   ADD_USER_PRODUCTS_FAILURE,
   ADD_USER_PRODUCTS_REQUEST,
   ADD_USER_PRODUCTS_SUCCESS,
+  DELETE_USER_PRODUCTS_FAILURE,
+  DELETE_USER_PRODUCTS_REQUEST,
+  DELETE_USER_PRODUCTS_SUCCESS,
   GET_USER_PRODUCTS_FAILURE,
   GET_USER_PRODUCTS_REQUEST,
   GET_USER_PRODUCTS_SUCCESS,
@@ -31,6 +34,15 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: false };
     }
     case ADD_USER_PRODUCTS_FAILURE: {
+      return { ...state, isLoading: false, isError: true };
+    }
+    case DELETE_USER_PRODUCTS_REQUEST: {
+      return { ...state, isLoading: true };
+    }
+    case DELETE_USER_PRODUCTS_SUCCESS: {
+      return { ...state, isLoading: false, cartProducts: payload.newProducts };
+    }
+    case DELETE_USER_PRODUCTS_FAILURE: {
       return { ...state, isLoading: false, isError: true };
     }
 

@@ -165,9 +165,6 @@ const Kids = () => {
           </Flex>
         </>
       )}
-      <Box>
-        <Image w="100%" src="../.././assets/freedelivery.jpg" alt="" />
-      </Box>
     </Box>
   );
 };

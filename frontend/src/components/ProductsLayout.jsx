@@ -1,7 +1,6 @@
 import { Box, Button, Flex, GridItem, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 const ProductsLayout = ({ image, name, price, _id, onClick }) => {
   return (

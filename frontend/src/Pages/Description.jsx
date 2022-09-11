@@ -17,7 +17,10 @@ import { MdDone } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { addProductsToCart } from "../redux/appReducer/cartReducer/cartAction";
+import {
+  addProductsToCart,
+  getProductsFromCart,
+} from "../redux/appReducer/cartReducer/cartAction";
 // import { setItemLocal } from "../utils/localStorage";
 
 const Description = () => {
@@ -53,7 +56,7 @@ const Description = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top-right",
+        position: "top",
       });
       return;
     }
@@ -72,7 +75,7 @@ const Description = () => {
           status: "info",
           duration: 2000,
           isClosable: true,
-          position: "top-right",
+          position: "top",
         });
       }
       toast({
@@ -81,12 +84,13 @@ const Description = () => {
         status: "success",
         duration: 2000,
         isClosable: true,
-        position: "top-right",
+        position: "top",
       });
       setToggle(true);
       setTimeout(() => {
         setToggle(false);
       }, 2000);
+      dispatch(getProductsFromCart());
     });
   };
 
