@@ -52,12 +52,9 @@ cartRouter.patch("/update/:itemId", async (req, res) => {
   if (!item) {
     return res.send({ message: "Item not found", response: false });
   }
-  const updatedProducts = await CartModel.updateOne(
-    { id: id },
-    { quantity: quantity }
-  );
-  // console.log(id);
-  return res.send({ message: "working", response: false });
+  await CartModel.updateOne({ _id: id }, { quantity: quantity });
+
+  return res.send({ message: "updated", response: true });
 });
 
 module.exports = cartRouter;

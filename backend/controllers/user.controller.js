@@ -43,8 +43,7 @@ userRouter.post("/login", async (req, res) => {
     if (result) {
       const token = await jwt.sign(
         { email: user.email, id: userId },
-        SECRET_KEY,
-        { expiresIn: "24h" }
+        SECRET_KEY
       );
       return res.send({ message: "Done", token, response: true });
     }
