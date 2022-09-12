@@ -14,6 +14,7 @@ import { Dna } from "react-loader-spinner";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import CartLayout from "../components/CartLayout";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   deleteCartItem,
   getProductsFromCart,
@@ -22,9 +23,11 @@ import {
 const Cart = () => {
   const isLoading = useSelector((state) => state.cartReducer.isLoading);
   const allProducts = useSelector((state) => state.cartReducer.cartProducts);
+
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const toast = useToast();
+  const navigate = useNavigate();
 
   const getProducts = () => {
     dispatch(getProductsFromCart()).then((r) => {
@@ -64,6 +67,20 @@ const Cart = () => {
     });
   };
 
+  const hanldeCheckout = () => {
+    if (allProducts.length === 0) {
+      return toast({
+        title: "Add products in cart first!",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+    localStorage.setItem("cart", JSON.stringify(allProducts));
+    navigate("/checkout");
+  };
+
   return (
     <>
       {isLoading ? (
@@ -78,18 +95,19 @@ const Cart = () => {
           />
         </Flex>
       ) : (
-        <Box top="65" position="relative" mb="8rem">
-          <Flex justify="center" gap={5}>
+        <Box top="81" position="relative" mb="8rem">
+          <Box justify="center" gap={5}>
             <Box
-              w={{ md: "100%", lg: "50%", xl: "50%" }}
+              w={{ md: "100%", lg: "60%", xl: "70%" }}
               bg="blackAlpha.50"
+              m="auto"
               borderRadius={5}
               p="1rem"
             >
               <Text fontSize={["1rem", "1.5rem"]} mb="0.8rem" fontWeight={600}>
                 Bag
               </Text>
-              {allProducts.length > 0 ? (
+              {allProducts && allProducts.length > 0 ? (
                 allProducts.map((item) => (
                   <CartLayout
                     key={item._id}
@@ -113,32 +131,34 @@ const Cart = () => {
                 </Box>
               )}
             </Box>
+
             <Box
               borderRadius={5}
-              w={{ md: "100%", lg: "30%", xl: "30%" }}
-              textAlign="start"
+              m="auto"
+              mt="1.5rem"
+              w={{ md: "100%", lg: "40%", xl: "30%" }}
               p="0 1.5rem"
             >
-              <Heading fontSize="3xl" fontWeight={600} p="1rem 0 2rem 0">
-                Summary
-              </Heading>
-              <Flex justify="space-between" mb="2rem">
-                <Text fontWeight={600}>Subtotal</Text>
+              <Flex justify="space-between" mb="2rem" fontSize="1.3rem">
+                <Text fontWeight={600}>Cart Total</Text>
                 <Text>₹{total}.00</Text>
               </Flex>
+
               <Button
                 w="100%"
-                bg="#ffce61"
+                bg="blackAlpha.800"
+                color="white"
                 transition="500ms"
                 p="1.5rem"
                 mt="0.5rem"
                 borderRadius={4}
-                _hover={{ bg: "#D69E2E", letterSpacing: "1px" }}
+                _hover={{ bg: "blackAlpha.900", letterSpacing: "1px" }}
+                onClick={hanldeCheckout}
               >
-                Proceed to Checkout <MdOutlineArrowRightAlt />
+                PROCEED TO CHECKOUT <MdOutlineArrowRightAlt />
               </Button>
             </Box>
-          </Flex>
+          </Box>
         </Box>
       )}
     </>

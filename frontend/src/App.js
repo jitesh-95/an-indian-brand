@@ -14,6 +14,8 @@ import ContactUs from "./Pages/ContactUs";
 import ScrollToTop from "./components/ScrollToTop";
 import Kids from "./Pages/Kids";
 import Description from "./Pages/Description";
+import Payment from "./Pages/Payment";
+import Checkout from "./Pages/Checkout";
 
 function App() {
   return (
@@ -25,6 +27,11 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/mens" element={<Mens />} />
+        <Route path="/womens" element={<Womens />} />
+        <Route path="/kids" element={<Kids />} />
+        <Route path="/description/:ProductId" element={<Description />} />
+        <Route path="/contactus" element={<ContactUs />} />
         <Route
           path="/cart"
           element={
@@ -33,11 +40,22 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route path="/mens" element={<Mens />} />
-        <Route path="/womens" element={<Womens />} />
-        <Route path="/kids" element={<Kids />} />
-        <Route path="/description/:ProductId" element={<Description />} />
-        <Route path="/contactus" element={<ContactUs />} />
+        <Route
+          path="/payment"
+          element={
+            <RequireAuth>
+              <Payment />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <RequireAuth>
+              <Checkout />
+            </RequireAuth>
+          }
+        />
       </Routes>
       <Footer />
       <ScrollToTop />

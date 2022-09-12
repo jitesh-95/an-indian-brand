@@ -1,15 +1,76 @@
-import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { updateCartItem } from "../redux/appReducer/cartReducer/cartAction";
 
 const CartLayout = ({ item, onClick, getProducts }) => {
   const [itemQuantity, setItemQuantity] = useState(item.quantity);
   const isLoading = useSelector((state) => state.cartReducer.isLoading);
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const incItemQuantity = () => {
+    setItemQuantity(itemQuantity + 1);
+    dispatch(updateCartItem(item._id, { quantity: itemQuantity + 1 })).then(
+      (r) => {
+        if (r.payload.response === true) {
+          getProducts();
+          toast({
+            title: "Quantity Updated successfully 🎉",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+          return;
+        }
+        toast({
+          title: "Something went wrong 😢",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    );
+  };
+
+  const decItemQuantity = () => {
+    setItemQuantity(itemQuantity - 1);
+    dispatch(updateCartItem(item._id, { quantity: itemQuantity - 1 })).then(
+      (r) => {
+        if (r.payload.response === true) {
+          getProducts();
+          toast({
+            title: "Quantity Updated successfully 🎉",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+          return;
+        }
+        toast({
+          title: "Something went wrong 😢",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+    );
+  };
 
   return (
     <Flex
@@ -20,7 +81,7 @@ const CartLayout = ({ item, onClick, getProducts }) => {
       bg="whiteAlpha.800"
       mb="0.8rem"
     >
-      <Box w="17%" h="150px">
+      <Box w="17%" h="180px">
         <Image w="100%" h="100%" src={item.image} />
       </Box>
       <Flex justify="space-between" w="80%">
@@ -42,25 +103,36 @@ const CartLayout = ({ item, onClick, getProducts }) => {
               Quantity:
             </Text>
             <Button
-              variant="outline"
+              variant="ghost"
+              _hover={{ bg: "black", color: "white" }}
+              transition="500ms"
               size="sm"
               fontSize="1.2rem"
               disabled={itemQuantity === 1}
               isLoading={isLoading}
+              onClick={decItemQuantity}
             >
-              -
+              <Icon as={AiOutlineMinusCircle} />
             </Button>
-            <Text bg="blue.100" borderRadius="50%" p="0.1rem 0.5rem">
+            <Text
+              bg="gray.500"
+              p="0.1rem 0.5rem"
+              color="white"
+              borderRadius={5}
+            >
               {itemQuantity}
             </Text>
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
+              _hover={{ bg: "black", color: "white" }}
+              transition="500ms"
               disabled={itemQuantity === 5}
               fontSize="1.2rem"
               isLoading={isLoading}
+              onClick={incItemQuantity}
             >
-              +
+              <Icon as={AiOutlinePlusCircle} />
             </Button>
           </Flex>
         </Box>
