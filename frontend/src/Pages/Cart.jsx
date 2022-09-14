@@ -152,6 +152,11 @@ const Cart = () => {
                 p="1.5rem"
                 mt="0.5rem"
                 borderRadius={4}
+                _focus={{
+                  outline: "none",
+                  bg: "blackAlpha.900",
+                }}
+                _active={{ transform: "scale(0.9)" }}
                 _hover={{ bg: "blackAlpha.900", letterSpacing: "1px" }}
                 onClick={hanldeCheckout}
               >

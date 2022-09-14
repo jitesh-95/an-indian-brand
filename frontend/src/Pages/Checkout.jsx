@@ -1,35 +1,123 @@
 import {
   Box,
   Button,
-  Container,
   Flex,
   FormControl,
   FormLabel,
   Heading,
   Input,
-  Select,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  Textarea,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
-import { FaCrown } from "react-icons/fa";
+import React, { useReducer } from "react";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-import { RiArrowDropRightLine } from "react-icons/ri";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "firstName":
+      return {
+        ...state,
+        firstName: action.payload,
+      };
+    case "lastName":
+      return {
+        ...state,
+        lastName: action.payload,
+      };
+    case "address":
+      return {
+        ...state,
+        address: action.payload,
+      };
+    case "city":
+      return {
+        ...state,
+        city: action.payload,
+      };
+    case "pincode":
+      return {
+        ...state,
+        pincode: action.payload,
+      };
+    case "phone":
+      return {
+        ...state,
+        phone: action.payload,
+      };
+    case "alternateMobile":
+      return {
+        ...state,
+        alternateMobile: action.payload,
+      };
+    case "email":
+      return {
+        ...state,
+        email: action.payload,
+      };
+    default: {
+      return state;
+    }
+  }
+}
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  address: "",
+  city: "",
+  pincode: "",
+  phone: "",
+  alternateMobile: "",
+  email: "",
+};
 
 const Checkout = () => {
-  let cart = JSON.parse(localStorage.getItem("cart"));
+  const [form, setForm] = useReducer(reducer, initialState);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const navigate = useNavigate();
 
+  let cart = JSON.parse(localStorage.getItem("cart"));
   const subtotal =
     cart &&
     cart.length > 0 &&
     cart?.map((item) => item.price * item.quantity).reduce((a, b) => a + b, 0);
 
-  const discount = Math.abs(subtotal - (subtotal * 10) / 100).toFixed(0);
+  const discount = Math.abs((subtotal * 10) / 100).toFixed(0);
 
-  const handlePayment = () => {};
+  const handlePayment = () => {
+    if (
+      !form.firstName ||
+      !form.address ||
+      !form.city ||
+      !form.pincode ||
+      form.phone.length !== 10 ||
+      !form.email
+    ) {
+      return toast({
+        title: "Please fill all details",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+    onOpen();
+  };
+
+  const handleProceed = () => {
+    onClose();
+    navigate("/payment");
+    localStorage.setItem("total", subtotal - discount);
+  };
 
   return (
     <Box position="relative" top="81">
@@ -56,57 +144,145 @@ const Checkout = () => {
           <Heading mb="1rem" fontSize="2xl">
             Billing details
           </Heading>
-          <form>
+          <Flex gap={5} mt="1rem">
             <FormControl isRequired>
-              <Flex gap={5} mt="1rem">
-                <Box w="100%">
-                  <FormLabel fontSize="xs">FIRST NAME</FormLabel>
-                  <Input bg="white" id="name" name="name" />
-                </Box>
-                <Box w="100%">
-                  <FormLabel fontSize="xs">LAST NAME</FormLabel>
-                  <Input bg="white" id="lastName" name="lastName" />
-                </Box>
-              </Flex>
-            </FormControl>
-
-            <FormControl isRequired>
-              <FormLabel fontSize="xs" mt="1rem">
-                ADDRESS
-              </FormLabel>
-              <Input bg="white" id="address" name="address" />
-
-              <Box w="100%" mt="1rem">
-                <FormLabel fontSize="xs">TOWN / CITY</FormLabel>
-                <Input bg="white" id="town" name="town" />
+              <Box w="100%">
+                <FormLabel fontSize="xs">FIRST NAME</FormLabel>
+                <Input
+                  bg="white"
+                  id="name"
+                  name="name"
+                  value={form.firstName}
+                  onChange={(e) =>
+                    setForm({ type: "firstName", payload: e.target.value })
+                  }
+                />
               </Box>
-
-              <Flex gap={5} mt="1rem">
-                <Box w="100%">
-                  <FormLabel fontSize="xs">PINCODE</FormLabel>
-                  <Input bg="white" id="postcode" name="postcode" />
-                </Box>
-                <Box w="100%">
-                  <FormLabel fontSize="xs">PHONE</FormLabel>
-                  <Input bg="white" id="phone" name="phone" />
-                </Box>
-              </Flex>
             </FormControl>
+            <Box w="100%">
+              <FormLabel fontSize="xs">LAST NAME</FormLabel>
+              <Input
+                bg="white"
+                id="lastName"
+                name="lastName"
+                value={form.lastName}
+                onChange={(e) =>
+                  setForm({ type: "lastName", payload: e.target.value })
+                }
+              />
+            </Box>
+          </Flex>
+
+          <FormControl isRequired>
+            <FormLabel fontSize="xs" mt="1rem">
+              ADDRESS
+            </FormLabel>
+            <Input
+              bg="white"
+              id="address"
+              name="address"
+              value={form.address}
+              onChange={(e) =>
+                setForm({ type: "address", payload: e.target.value })
+              }
+            />
+
+            <Box w="100%" mt="1rem">
+              <FormLabel fontSize="xs">TOWN / CITY</FormLabel>
+              <Input
+                bg="white"
+                id="town"
+                name="town"
+                value={form.city}
+                onChange={(e) =>
+                  setForm({ type: "city", payload: e.target.value })
+                }
+              />
+            </Box>
 
             <Flex gap={5} mt="1rem">
               <Box w="100%">
-                <FormLabel fontSize="xs">ALTERNAME PHONE (OPTIONAL)</FormLabel>
-                <Input bg="white" id="alternatePhone" name="alternatePhone" />
+                <FormLabel fontSize="xs">PINCODE</FormLabel>
+                <Input
+                  bg="white"
+                  id="pincode"
+                  name="pincode"
+                  maxLength={6}
+                  value={form.pincode}
+                  onChange={(e) =>
+                    setForm({ type: "pincode", payload: e.target.value })
+                  }
+                />
               </Box>
               <Box w="100%">
-                <FormControl isRequired>
-                  <FormLabel fontSize="xs">EMAIL ADDRESS</FormLabel>
-                  <Input bg="white" id="email" name="email" />
-                </FormControl>
+                <FormLabel fontSize="xs">PHONE</FormLabel>
+                <Input
+                  bg="white"
+                  id="phone"
+                  name="phone"
+                  maxLength={10}
+                  value={form.phone}
+                  onChange={(e) =>
+                    setForm({ type: "phone", payload: e.target.value })
+                  }
+                />
               </Box>
             </Flex>
-          </form>
+          </FormControl>
+
+          <Flex gap={5} mt="1rem">
+            <Box w="100%">
+              <FormLabel fontSize="xs">ALTERNAME PHONE (OPTIONAL)</FormLabel>
+              <Input
+                bg="white"
+                id="alternateMobile"
+                name="alternateMobile"
+                maxLength={10}
+                value={form.alternateMobile}
+                onChange={(e) =>
+                  setForm({ type: "alternateMobile", payload: e.target.value })
+                }
+              />
+            </Box>
+            <Box w="100%">
+              <FormControl isRequired>
+                <FormLabel fontSize="xs">EMAIL ADDRESS</FormLabel>
+                <Input
+                  bg="white"
+                  id="email"
+                  name="email"
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm({ type: "email", payload: e.target.value })
+                  }
+                />
+              </FormControl>
+            </Box>
+          </Flex>
         </Box>
+
+        {/* confirming by modal  */}
+
+        <Modal size="xs" isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+          <ModalContent>
+            <ModalHeader color="red" bg="blackAlpha.900">
+              Do you want to proceed ?
+            </ModalHeader>
+            <ModalBody color="white" bg="blackAlpha.700">
+              This will take you to the payment page.
+            </ModalBody>
+
+            <ModalFooter bg="blackAlpha.700">
+              <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="facebook" onClick={handleProceed}>
+                Proceed
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
 
         {/* cart details section  */}
 
@@ -158,7 +334,7 @@ const Checkout = () => {
             <Text fontSize="xs" fontWeight={600}>
               TOTAL
             </Text>
-            <Text>₹{discount}.00</Text>
+            <Text>₹{subtotal - discount}.00</Text>
           </Flex>
 
           <Button
@@ -169,6 +345,11 @@ const Checkout = () => {
             p="1.5rem"
             mt="0.5rem"
             borderRadius={4}
+            _focus={{
+              outline: "none",
+              bg: "blackAlpha.900",
+            }}
+            _active={{ transform: "scale(0.9)" }}
             _hover={{ bg: "blackAlpha.900", letterSpacing: "1px" }}
             onClick={handlePayment}
           >

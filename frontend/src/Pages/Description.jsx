@@ -214,6 +214,10 @@ const Description = () => {
                   size="lg"
                   bg="#ECC94B"
                   transition="500ms"
+                  _focus={{
+                    outline: "none",
+                  }}
+                  _active={{ transform: "scale(0.9)", bg: "#ECC94B" }}
                   _hover={{ bg: "#D69E2E", letterSpacing: "1px" }}
                   borderRadius={0}
                   onClick={handleCart}
@@ -228,6 +232,10 @@ const Description = () => {
                   size="lg"
                   bg="#FEB2B2"
                   transition="500ms"
+                  _focus={{
+                    outline: "none",
+                  }}
+                  _active={{ transform: "scale(0.9)", bg: "#FEB2B2" }}
                   _hover={{ bg: "#F56565", letterSpacing: "1px" }}
                   borderRadius={0}
                 >
