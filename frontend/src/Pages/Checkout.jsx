@@ -230,7 +230,7 @@ const Checkout = () => {
             </Flex>
           </FormControl>
 
-          <Flex gap={5} mt="1rem">
+          <Flex gap={5} mt="1rem" mb="1rem">
             <Box w="100%">
               <FormLabel fontSize="xs">ALTERNAME PHONE (OPTIONAL)</FormLabel>
               <Input
@@ -264,16 +264,12 @@ const Checkout = () => {
         {/* confirming by modal  */}
 
         <Modal size="xs" isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+          <ModalOverlay backdropFilter="blur(10px)" />
           <ModalContent>
-            <ModalHeader color="red" bg="blackAlpha.900">
-              Do you want to proceed ?
-            </ModalHeader>
-            <ModalBody color="white" bg="blackAlpha.700">
-              This will take you to the payment page.
-            </ModalBody>
+            <ModalHeader>Do you want to proceed ?</ModalHeader>
+            <ModalBody>This will take you to the payment page.</ModalBody>
 
-            <ModalFooter bg="blackAlpha.700">
+            <ModalFooter>
               <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
                 Cancel
               </Button>
