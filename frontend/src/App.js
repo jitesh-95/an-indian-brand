@@ -16,6 +16,7 @@ import Kids from "./Pages/Kids";
 import Description from "./Pages/Description";
 import Payment from "./Pages/Payment";
 import Checkout from "./Pages/Checkout";
+import Orders from "./Pages/Orders";
 
 function App() {
   return (
@@ -53,6 +54,14 @@ function App() {
           element={
             <RequireAuth>
               <Checkout />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <RequireAuth>
+              <Orders />
             </RequireAuth>
           }
         />

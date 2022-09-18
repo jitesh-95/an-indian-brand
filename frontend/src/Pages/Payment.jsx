@@ -1,7 +1,22 @@
-import { Box, Heading, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import Cleave from "cleave.js/react";
 import "./CSS/Payment.css";
+import { RotatingSquare } from "react-loader-spinner";
 
 const imageUrls = [
   "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png",
@@ -13,6 +28,7 @@ const imageUrls = [
 ];
 
 const Payment = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   let total = localStorage.getItem("total");
   const [creditCardNum, setCreditCardNum] = useState("#### #### #### ####");
   const [cardType, setCardType] = useState("");
@@ -20,6 +36,7 @@ const Payment = () => {
   const [expireMonth, setExpireMonth] = useState("MM");
   const [expireYear, setExpireYear] = useState("YYYY");
   const [cvv, setCvv] = useState();
+  const [toggle, setToggle] = useState(false);
   const toast = useToast();
   const [cardTypeUrl, setCardTypeUrl] = useState(
     "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png"
@@ -78,7 +95,16 @@ const Payment = () => {
         position: "top",
       });
     }
-    console.log(creditCardNum, cardHolder, expireMonth, expireYear, cvv);
+    onOpen();
+    setTimeout(() => {
+      setToggle(true);
+    }, 3000);
+    setTimeout(() => {
+      onClose();
+      setToggle(false);
+      localStorage.removeItem("total");
+      console.log(creditCardNum, cardHolder, expireMonth, expireYear, cvv);
+    }, 5000);
   };
 
   // cleave.js logic
@@ -187,11 +213,43 @@ const Payment = () => {
             border="2px solid"
             padding="0.5rem"
           >
-            Pay: {total}
+            Pay: {total && total}
           </Heading>
           <button>{`Pay by ${cardType}`}</button>
         </form>
       </div>
+
+      {/* modal for confirmation  */}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        closeOnOverlayClick={false}
+        isCentered
+        scrollBehavior="outside"
+      >
+        <ModalOverlay bg="blackAlpha.200" backdropFilter="blur(20px)" />
+        <ModalContent bg="none">
+          <ModalBody>
+            <Center>
+              {toggle ? (
+                <Flex direction="column" align="center">
+                  <Heading>Congratulations 🎉</Heading>
+                  <Text mt="2rem">Your Order is Placed</Text>
+                </Flex>
+              ) : (
+                <RotatingSquare
+                  height="150"
+                  width="150"
+                  color="#4fa94d"
+                  ariaLabel="rotating-square-loading"
+                  strokeWidth="4"
+                  visible={true}
+                />
+              )}
+            </Center>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
