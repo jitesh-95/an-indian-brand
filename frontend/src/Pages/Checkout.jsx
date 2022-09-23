@@ -319,10 +319,10 @@ const Checkout = () => {
             <Text>₹{subtotal}.00</Text>
           </Flex>
           <Flex justify="space-between" p="1rem" fontWeight={500}>
-            <Text fontSize="xs" fontWeight={600}>
+            <Text fontSize="xs" fontWeight={600} color="red.400">
               DISCOUNT (10% APPLIED)
             </Text>
-            <Text>₹{discount}.00</Text>
+            <Text color="red.400">₹{discount}.00</Text>
           </Flex>
 
           <hr />

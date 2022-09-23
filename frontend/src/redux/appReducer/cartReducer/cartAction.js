@@ -6,6 +6,9 @@ import {
   DELETE_USER_PRODUCTS_FAILURE,
   DELETE_USER_PRODUCTS_REQUEST,
   DELETE_USER_PRODUCTS_SUCCESS,
+  EMPTY_USER_PRODUCTS_FAILURE,
+  EMPTY_USER_PRODUCTS_REQUEST,
+  EMPTY_USER_PRODUCTS_SUCCESS,
   GET_USER_PRODUCTS_FAILURE,
   GET_USER_PRODUCTS_REQUEST,
   GET_USER_PRODUCTS_SUCCESS,
@@ -83,4 +86,17 @@ export const updateCartItem = (id, payload) => (dispatch) => {
     .catch((err) =>
       dispatch({ type: UPDATE_USER_PRODUCTS_FAILURE, payload: err })
     );
+};
+
+export const emptyCart = () => (dispatch) => {
+  dispatch({ type: EMPTY_USER_PRODUCTS_REQUEST });
+  return axios
+    .get(`http://localhost:8080/cart/empty`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => dispatch({ type: EMPTY_USER_PRODUCTS_SUCCESS }))
+    .catch((err) => dispatch({ type: EMPTY_USER_PRODUCTS_FAILURE }));
 };

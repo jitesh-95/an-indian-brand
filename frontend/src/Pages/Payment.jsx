@@ -14,9 +14,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Cleave from "cleave.js/react";
 import "./CSS/Payment.css";
 import { RotatingSquare } from "react-loader-spinner";
+import { addOrders } from "../redux/appReducer/ordersReducer/ordersAction";
+import { emptyCart } from "../redux/appReducer/cartReducer/cartAction";
 
 const imageUrls = [
   "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png",
@@ -30,6 +34,7 @@ const imageUrls = [
 const Payment = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let total = localStorage.getItem("total");
+  let cart = JSON.parse(localStorage.getItem("cart"));
   const [creditCardNum, setCreditCardNum] = useState("#### #### #### ####");
   const [cardType, setCardType] = useState("");
   const [cardHolder, setCardHolder] = useState("Your Full Name");
@@ -38,6 +43,8 @@ const Payment = () => {
   const [cvv, setCvv] = useState();
   const [toggle, setToggle] = useState(false);
   const toast = useToast();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [cardTypeUrl, setCardTypeUrl] = useState(
     "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png"
   );
@@ -77,6 +84,7 @@ const Payment = () => {
   };
 
   const handleCvv = (e) => [setCvv(e.target.value)];
+  // month, day, hours, minutes, seconds, milliseconds
 
   const handlePayment = (e) => {
     e.preventDefault();
@@ -96,6 +104,20 @@ const Payment = () => {
       });
     }
     onOpen();
+
+    //finding out the data for orders
+    let orders =
+      cart.length > 0 &&
+      cart.map((el) => {
+        let item = {
+          name: el.name,
+          image: el.image,
+          price: el.price,
+          id: el._id,
+        };
+        return item;
+      });
+
     setTimeout(() => {
       setToggle(true);
     }, 3000);
@@ -103,10 +125,21 @@ const Payment = () => {
       onClose();
       setToggle(false);
       localStorage.removeItem("total");
-      console.log(creditCardNum, cardHolder, expireMonth, expireYear, cvv);
+      localStorage.removeItem("cart");
+
+      let date = Date().split(" ");
+      let dateOfPurchase = date[2] + "-" + date[1] + "-" + date[3];
+      let payload = {
+        date: dateOfPurchase,
+        order: orders,
+      };
+      // adding products in orders
+      dispatch(addOrders(payload));
+      dispatch(emptyCart());
+      navigate("/orders");
     }, 5000);
   };
-
+  // console.log(cart);
   // cleave.js logic
 
   return (
@@ -205,17 +238,19 @@ const Payment = () => {
               />
             </div>
           </div>
-          <Heading
-            textAlign="center"
-            fontSize="1.5rem"
-            fontWeight={600}
-            color="blue.600"
-            border="2px solid"
-            padding="0.5rem"
-          >
-            Pay: {total && total}
-          </Heading>
-          <button>{`Pay by ${cardType}`}</button>
+          {total && (
+            <Heading
+              textAlign="center"
+              fontSize="1.5rem"
+              fontWeight={600}
+              color="blue.600"
+              border="2px solid"
+              padding="0.5rem"
+            >
+              Amount: {total}
+            </Heading>
+          )}
+          <button>{`Pay using ${cardType}`}</button>
         </form>
       </div>
 
@@ -234,7 +269,9 @@ const Payment = () => {
               {toggle ? (
                 <Flex direction="column" align="center">
                   <Heading>Congratulations 🎉</Heading>
-                  <Text mt="2rem">Your Order is Placed</Text>
+                  <Text mt="2rem" fontSize="1.2rem">
+                    See your orders in orders Section
+                  </Text>
                 </Flex>
               ) : (
                 <RotatingSquare

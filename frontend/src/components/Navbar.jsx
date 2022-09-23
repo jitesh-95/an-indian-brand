@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Box,
-  Button,
   Flex,
   Image,
   Menu,
@@ -17,22 +15,26 @@ import { HiOutlineArrowSmDown } from "react-icons/hi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { FiHeart, FiUser } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ImMan, ImWoman } from "react-icons/im";
+import { FaChild } from "react-icons/fa";
+import { BsBagCheck } from "react-icons/bs";
+import { AiOutlineLogout } from "react-icons/ai";
+import { logout } from "../redux/authReducer/authAction";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isopen, onopen, onclose } = useDisclosure();
+  const { isLoginOpen, onLoginOpen, onLoginClose } = useDisclosure();
   const isAuth = useSelector((state) => state.authReducer.isAuth);
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
     if (isAuth) {
-      navigate("/");
-      localStorage.removeItem("indianBrandToken");
-      return;
+      dispatch(logout());
+      return navigate("/");
     }
     navigate("/login");
-    // }
   };
 
   return (
@@ -83,10 +85,11 @@ const Navbar = () => {
           <MenuList mt="-10px" onMouseLeave={onClose} onMouseEnter={onOpen}>
             <Link to="/mens">
               <MenuItem
-                transition="500ms"
+                icon={<ImMan fontSize="1.2rem" />}
+                transition="300ms"
                 _hover={{
-                  bg: "#A0AEC0",
                   fontWeight: "bold",
+                  color: "#2B6CB0",
                   letterSpacing: "1px",
                 }}
               >
@@ -95,10 +98,11 @@ const Navbar = () => {
             </Link>
             <Link to="/womens">
               <MenuItem
-                transition="500ms"
+                icon={<ImWoman fontSize="1.2rem" />}
+                transition="300ms"
                 _hover={{
-                  bg: "#A0AEC0",
                   fontWeight: "bold",
+                  color: "#2B6CB0",
                   letterSpacing: "1px",
                 }}
               >
@@ -107,10 +111,11 @@ const Navbar = () => {
             </Link>
             <Link to="/kids">
               <MenuItem
-                transition="500ms"
+                icon={<FaChild fontSize="1rem" />}
+                transition="300ms"
                 _hover={{
-                  bg: "#A0AEC0",
                   fontWeight: "bold",
+                  color: "#2B6CB0",
                   letterSpacing: "1px",
                 }}
               >
@@ -138,40 +143,46 @@ const Navbar = () => {
       </Flex>
 
       <Flex align="center" gap={[2, 2, 3, 4, 4, 4]}>
-        <Box cursor="pointer">
-          <Menu isOpen={isopen}>
-            <MenuButton>
-              <Icon as={FiUser} w={[3.5, 4, 5, 5, 6]} h={[3.5, 4, 5, 5, 6]} />
-            </MenuButton>
-            <MenuList mt="-10px" onMouseLeave={onclose} onMouseEnter={onopen}>
-              <Link to="/orders">
-                <MenuItem
-                  transition="500ms"
-                  _hover={{
-                    bg: "none",
-                    fontWeight: "bold",
-                    color: "green",
-                    letterSpacing: "1px",
-                  }}
-                >
-                  ORDERS
-                </MenuItem>
-              </Link>
+        <Menu isOpen={isLoginOpen}>
+          <MenuButton>
+            <Icon
+              as={FiUser}
+              w={[3.5, 4, 5, 5, 6]}
+              h={[3.5, 4, 5, 5, 6]}
+              cursor="pointer"
+            />
+          </MenuButton>
+          <MenuList onMouseLeave={onLoginClose} onMouseEnter={onLoginOpen}>
+            <Link to="/orders">
               <MenuItem
-                transition="500ms"
+                icon={<BsBagCheck fontSize="1rem" />}
+                transition="300ms"
                 _hover={{
                   bg: "none",
                   fontWeight: "bold",
-                  color: "green",
+                  color: "#2B6CB0",
                   letterSpacing: "1px",
                 }}
-                onClick={handleLogin}
               >
-                {isAuth ? "LOGOUT" : "LOGIN"}
+                ORDERS
               </MenuItem>
-            </MenuList>
-          </Menu>
-        </Box>
+            </Link>
+            <MenuItem
+              icon={<AiOutlineLogout fontSize="1rem" />}
+              transition="300ms"
+              _hover={{
+                bg: "none",
+                fontWeight: "bold",
+                color: "#2B6CB0",
+                letterSpacing: "1px",
+              }}
+              onClick={handleLogin}
+            >
+              {isAuth ? "LOGOUT" : "LOGIN"}
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
         <Link to="#">
           <Icon as={FiHeart} w={[3.5, 4, 5, 5, 6]} h={[3.5, 4, 5, 5, 6]} />
         </Link>

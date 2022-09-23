@@ -46,6 +46,16 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: false, isError: true };
     }
 
+    case DELETE_USER_PRODUCTS_REQUEST: {
+      return { ...state, isLoading: true };
+    }
+    case DELETE_USER_PRODUCTS_SUCCESS: {
+      return { ...state, isLoading: false, cartProducts: [] };
+    }
+    case DELETE_USER_PRODUCTS_FAILURE: {
+      return { ...state, isLoading: false, isError: true };
+    }
+
     default:
       return state;
   }

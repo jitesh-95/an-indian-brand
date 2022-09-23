@@ -80,8 +80,15 @@ const CartLayout = ({ item, onClick, getProducts }) => {
       p="0.5rem"
       bg="whiteAlpha.800"
       mb="0.8rem"
+      direction={{
+        base: "column",
+        sm: "row",
+        md: "row",
+        lg: "row",
+        xl: "row",
+      }}
     >
-      <Box w="17%" h="180px">
+      <Box w={["60%", "25%", "21%", "18%", "17%"]} h="180px">
         <Image w="100%" h="100%" src={item.image} />
       </Box>
       <Flex justify="space-between" w="80%">

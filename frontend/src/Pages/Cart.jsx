@@ -25,20 +25,30 @@ const Cart = () => {
   const allProducts = useSelector((state) => state.cartReducer.cartProducts);
 
   const [total, setTotal] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
 
   const getProducts = () => {
+    // setting total and quantity and calling cart products
     dispatch(getProductsFromCart()).then((r) => {
       if (r.payload.cartProducts.length > 0) {
         let sum = r.payload.cartProducts
           .map((item) => item.price * item.quantity)
           .reduce((a, b) => a + b, 0);
         setTotal(sum);
+
+        let quant = r.payload.cartProducts
+          .map((item) => item.quantity)
+          .reduce((a, b) => a + b, 0);
+        setQuantity(quant);
       }
     });
   };
+
+  // calling the cart products
+
   useEffect(() => {
     if (allProducts.length === 0) {
       getProducts();
@@ -96,16 +106,37 @@ const Cart = () => {
         </Flex>
       ) : (
         <Box top="81" position="relative" mb="8rem">
-          <Box justify="center" gap={5}>
+          <Flex
+            justify="center"
+            gap={5}
+            m="auto"
+            direction={{
+              base: "column",
+              sm: "column",
+              md: "column",
+              lg: "row",
+              xl: "row",
+            }}
+            w={["99%", "98%", "98%", "90%", "80%"]}
+          >
             <Box
-              w={{ md: "100%", lg: "60%", xl: "70%" }}
+              w={{ base: "99%", sm: "98%", md: "100%", lg: "70%", xl: "70%" }}
               bg="blackAlpha.50"
               m="auto"
               borderRadius={5}
               p="1rem"
             >
               <Text fontSize={["1rem", "1.5rem"]} mb="0.8rem" fontWeight={600}>
-                Bag
+                Bag{" "}
+                <span
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: "500",
+                    color: "#2B6CB0",
+                  }}
+                >
+                  / {quantity} prodcuts
+                </span>
               </Text>
               {allProducts && allProducts.length > 0 ? (
                 allProducts.map((item) => (
@@ -163,7 +194,7 @@ const Cart = () => {
                 PROCEED TO CHECKOUT <MdOutlineArrowRightAlt />
               </Button>
             </Box>
-          </Box>
+          </Flex>
         </Box>
       )}
     </>
