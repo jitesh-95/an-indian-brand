@@ -102,7 +102,7 @@ const Kids = () => {
               display="inline-block"
               fontSize="1.1rem"
               ml="0.5rem"
-              fontWeight={400}
+              fontWeight={600}
             >
               /{totalResults} Products
             </Text>

@@ -40,7 +40,7 @@ const ProductsLayout = ({ image, name, price, _id, onClick }) => {
             Fulfilled by <i>AN INDIAN BRAND</i>
           </Text>
           <Flex justify="space-between" align="center" pt="0.5rem">
-            <Text color="#2C5282">
+            <Text color="#2C5282" fontWeight={600}>
               ₹{price}{" "}
               <span
                 style={{

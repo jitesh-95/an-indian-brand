@@ -63,6 +63,7 @@ const Navbar = () => {
         </Link>
         <Menu isOpen={isOpen}>
           <MenuButton
+            fontWeight={600}
             onMouseEnter={onOpen}
             onMouseLeave={onClose}
             // _hover={{ borderBottom: "2px solid" }}
@@ -85,6 +86,7 @@ const Navbar = () => {
           <MenuList mt="-10px" onMouseLeave={onClose} onMouseEnter={onOpen}>
             <Link to="/mens">
               <MenuItem
+                fontWeight={600}
                 icon={<ImMan fontSize="1.2rem" />}
                 transition="300ms"
                 _hover={{
@@ -98,6 +100,7 @@ const Navbar = () => {
             </Link>
             <Link to="/womens">
               <MenuItem
+                fontWeight={600}
                 icon={<ImWoman fontSize="1.2rem" />}
                 transition="300ms"
                 _hover={{
@@ -111,6 +114,7 @@ const Navbar = () => {
             </Link>
             <Link to="/kids">
               <MenuItem
+                fontWeight={600}
                 icon={<FaChild fontSize="1rem" />}
                 transition="300ms"
                 _hover={{
@@ -127,6 +131,7 @@ const Navbar = () => {
 
         <Link to="/aboutus">
           <Text
+            fontWeight={600}
             _hover={{ borderBottom: "2px solid" }}
             transition="300ms"
             fontSize={{
@@ -155,6 +160,7 @@ const Navbar = () => {
           <MenuList onMouseLeave={onLoginClose} onMouseEnter={onLoginOpen}>
             <Link to="/orders">
               <MenuItem
+                fontWeight={600}
                 icon={<BsBagCheck fontSize="1rem" />}
                 transition="300ms"
                 _hover={{
@@ -168,6 +174,7 @@ const Navbar = () => {
               </MenuItem>
             </Link>
             <MenuItem
+              fontWeight={600}
               icon={<AiOutlineLogout fontSize="1rem" />}
               transition="300ms"
               _hover={{

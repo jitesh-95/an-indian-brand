@@ -246,7 +246,10 @@ const Description = () => {
               <Heading fontSize="1.4rem" fontWeight={600} mt="1.5rem">
                 Description:
               </Heading>
-              <Text maxW={["100%", "95%", "90%", "70%", "65%", "60%"]}>
+              <Text
+                maxW={["100%", "95%", "90%", "70%", "65%", "60%"]}
+                fontWeight={600}
+              >
                 {name} in cotton twill with a collar in soft corduroy. Relaxed
                 fit with a zip down the front, flap chest pockets and a yoke at
                 the back. Long sleeves with buttoned cuffs, and a straight-cut
