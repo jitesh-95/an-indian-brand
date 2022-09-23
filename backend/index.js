@@ -11,6 +11,7 @@ const menRouter = require("./controllers/men.controller");
 const womenRouter = require("./controllers/women.controller");
 const kidsRouter = require("./controllers/kids.controller");
 const cartRouter = require("./controllers/cart.controller");
+const orderRouter = require("./controllers/order.controller");
 
 app.use(express.json());
 app.use("/user", userRouter);
@@ -20,6 +21,7 @@ app.use("/products", kidsRouter);
 
 app.use(Authentication);
 app.use("/cart", cartRouter);
+app.use("/orders", orderRouter);
 
 const PORT = process.env.PORT;
 app.listen(PORT, async () => {

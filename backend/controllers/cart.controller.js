@@ -57,4 +57,14 @@ cartRouter.patch("/update/:itemId", async (req, res) => {
   return res.send({ message: "updated", response: true });
 });
 
+// making cart empty
+cartRouter.get("/empty", async (req, res) => {
+  const { userId } = req.body;
+  const items = await CartModel.find({ userId });
+  if (items) {
+    await CartModel.deleteMany({ userId });
+  }
+  res.send({ message: "done", response: true });
+});
+
 module.exports = cartRouter;
