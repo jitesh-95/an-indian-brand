@@ -147,7 +147,9 @@ const Checkout = () => {
           <Flex gap={5} mt="1rem">
             <FormControl isRequired>
               <Box w="100%">
-                <FormLabel fontSize="xs">FIRST NAME</FormLabel>
+                <FormLabel fontSize="xs" fontWeight={600}>
+                  FIRST NAME
+                </FormLabel>
                 <Input
                   bg="white"
                   id="name"
@@ -160,7 +162,9 @@ const Checkout = () => {
               </Box>
             </FormControl>
             <Box w="100%">
-              <FormLabel fontSize="xs">LAST NAME</FormLabel>
+              <FormLabel fontSize="xs" fontWeight={600}>
+                LAST NAME
+              </FormLabel>
               <Input
                 bg="white"
                 id="lastName"
@@ -174,7 +178,7 @@ const Checkout = () => {
           </Flex>
 
           <FormControl isRequired>
-            <FormLabel fontSize="xs" mt="1rem">
+            <FormLabel fontSize="xs" mt="1rem" fontWeight={600}>
               ADDRESS
             </FormLabel>
             <Input
@@ -188,7 +192,9 @@ const Checkout = () => {
             />
 
             <Box w="100%" mt="1rem">
-              <FormLabel fontSize="xs">TOWN / CITY</FormLabel>
+              <FormLabel fontSize="xs" fontWeight={600}>
+                TOWN / CITY
+              </FormLabel>
               <Input
                 bg="white"
                 id="town"
@@ -202,7 +208,9 @@ const Checkout = () => {
 
             <Flex gap={5} mt="1rem">
               <Box w="100%">
-                <FormLabel fontSize="xs">PINCODE</FormLabel>
+                <FormLabel fontSize="xs" fontWeight={600}>
+                  PINCODE
+                </FormLabel>
                 <Input
                   bg="white"
                   id="pincode"
@@ -215,7 +223,9 @@ const Checkout = () => {
                 />
               </Box>
               <Box w="100%">
-                <FormLabel fontSize="xs">PHONE</FormLabel>
+                <FormLabel fontSize="xs" fontWeight={600}>
+                  PHONE
+                </FormLabel>
                 <Input
                   bg="white"
                   id="phone"
@@ -232,7 +242,9 @@ const Checkout = () => {
 
           <Flex gap={5} mt="1rem" mb="1rem">
             <Box w="100%">
-              <FormLabel fontSize="xs">ALTERNAME PHONE (OPTIONAL)</FormLabel>
+              <FormLabel fontSize="xs" fontWeight={600}>
+                ALTERNAME PHONE (OPTIONAL)
+              </FormLabel>
               <Input
                 bg="white"
                 id="alternateMobile"
@@ -246,7 +258,9 @@ const Checkout = () => {
             </Box>
             <Box w="100%">
               <FormControl isRequired>
-                <FormLabel fontSize="xs">EMAIL ADDRESS</FormLabel>
+                <FormLabel fontSize="xs" fontWeight={600}>
+                  EMAIL ADDRESS
+                </FormLabel>
                 <Input
                   bg="white"
                   id="email"

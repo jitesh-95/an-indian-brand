@@ -22,43 +22,26 @@ import {
 
 const Cart = () => {
   const isLoading = useSelector((state) => state.cartReducer.isLoading);
-  const allProducts = useSelector((state) => state.cartReducer.cartProducts);
+  const { cartProducts, cartTotal, totalQuantity } = useSelector(
+    (state) => state.cartReducer
+  );
 
-  const [total, setTotal] = useState(0);
-  const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
 
-  const getProducts = () => {
-    // setting total and quantity and calling cart products
-    dispatch(getProductsFromCart()).then((r) => {
-      if (r.payload.cartProducts.length > 0) {
-        let sum = r.payload.cartProducts
-          .map((item) => item.price * item.quantity)
-          .reduce((a, b) => a + b, 0);
-        setTotal(sum);
-
-        let quant = r.payload.cartProducts
-          .map((item) => item.quantity)
-          .reduce((a, b) => a + b, 0);
-        setQuantity(quant);
-      }
-    });
-  };
-
   // calling the cart products
 
   useEffect(() => {
-    if (allProducts.length === 0) {
-      getProducts();
+    if (cartProducts.length === 0) {
+      dispatch(getProductsFromCart());
     }
   }, []);
 
   const deleteItem = (id) => {
     dispatch(deleteCartItem(id)).then((r) => {
       if (r.payload.response === true) {
-        getProducts();
+        dispatch(getProductsFromCart());
         return toast({
           title: "Item deleted successfully 🎉",
           status: "success",
@@ -78,7 +61,7 @@ const Cart = () => {
   };
 
   const hanldeCheckout = () => {
-    if (allProducts.length === 0) {
+    if (cartProducts.length === 0) {
       return toast({
         title: "Add products in cart first!",
         status: "warning",
@@ -87,7 +70,7 @@ const Cart = () => {
         position: "top",
       });
     }
-    localStorage.setItem("cart", JSON.stringify(allProducts));
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
     navigate("/checkout");
   };
 
@@ -135,16 +118,15 @@ const Cart = () => {
                     color: "#2B6CB0",
                   }}
                 >
-                  / {quantity} prodcuts
+                  / {totalQuantity} prodcuts
                 </span>
               </Text>
-              {allProducts && allProducts.length > 0 ? (
-                allProducts.map((item) => (
+              {cartProducts && cartProducts.length > 0 ? (
+                cartProducts.map((item) => (
                   <CartLayout
                     key={item._id}
                     item={item}
                     onClick={() => deleteItem(item._id)}
-                    getProducts={getProducts}
                   />
                 ))
               ) : (
@@ -172,7 +154,7 @@ const Cart = () => {
             >
               <Flex justify="space-between" mb="2rem" fontSize="1.3rem">
                 <Text fontWeight={600}>Cart Total</Text>
-                <Text>₹{total}.00</Text>
+                <Text>₹{cartTotal}.00</Text>
               </Flex>
 
               <Button

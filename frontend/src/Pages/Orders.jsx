@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Flex, Heading, Text, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Grid,
+  GridItem,
+  Image,
+} from "@chakra-ui/react";
 import { Dna } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -50,7 +58,7 @@ const Orders = () => {
             YOUR ORDERS
           </Heading>
 
-          {ordersData.length > 0 &&
+          {ordersData.length > 0 ? (
             ordersData.map((item) => (
               <Box
                 key={item._id}
@@ -86,7 +94,21 @@ const Orders = () => {
                   <OrdersLayout item={item} />
                 </Grid>
               </Box>
-            ))}
+            ))
+          ) : (
+            <Box mt="2rem">
+              <Image m="auto" w="50%" src="../.././no_data.svg" />
+              <Text
+                fontSize="1.2rem"
+                fontWeight={600}
+                textAlign="center"
+                mt="1rem"
+                color="#6c63ff"
+              >
+                ...No Data, Shop Now...
+              </Text>
+            </Box>
+          )}
         </>
       )}
     </Box>

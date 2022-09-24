@@ -1,6 +1,7 @@
+import { Box, Icon } from "@chakra-ui/react";
 import React from "react";
-import  {useState} from 'react';
-import {FaArrowCircleUp} from 'react-icons/fa';
+import { useState } from "react";
+import { FaArrowCircleUp } from "react-icons/fa";
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -26,12 +27,17 @@ const ScrollToTop = () => {
   window.addEventListener("scroll", toggleVisible);
 
   return (
-    <div className="scrollbtn">
-      <FaArrowCircleUp
+    <Box position="fixed" bottom={8} right={8}>
+      <Icon
+        as={FaArrowCircleUp}
+        color="blackAlpha.700"
+        borderRadius="50%"
+        fontSize="2rem"
+        cursor="pointer"
         onClick={scrollToTop}
         style={{ display: visible ? "inline" : "none" }}
       />
-    </div>
+    </Box>
   );
 };
 

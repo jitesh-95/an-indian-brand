@@ -21,6 +21,7 @@ import { FaChild } from "react-icons/fa";
 import { BsBagCheck } from "react-icons/bs";
 import { AiOutlineLogout } from "react-icons/ai";
 import { logout } from "../redux/authReducer/authAction";
+import { getProductsFromCart } from "../redux/appReducer/cartReducer/cartAction";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogin = () => {
+    dispatch(getProductsFromCart());
     if (isAuth) {
       dispatch(logout());
       return navigate("/");

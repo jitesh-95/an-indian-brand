@@ -143,7 +143,7 @@ const Payment = () => {
   // cleave.js logic
 
   return (
-    <Box position="relative" top="220" mb="20rem">
+    <Box position="relative" top="220" mb="20rem" fontWeight={600}>
       <div className="container">
         <form id="form" onSubmit={handlePayment}>
           <div id="card">

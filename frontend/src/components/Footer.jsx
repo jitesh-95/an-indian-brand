@@ -1,51 +1,68 @@
-import { Icon } from "@chakra-ui/react";
-import React from "react";
-import { FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import {
+  Box,
+  chakra,
+  Container,
+  Image,
+  Link,
+  Stack,
+  Text,
+  useColorModeValue,
+  VisuallyHidden,
+} from "@chakra-ui/react";
+import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
-
-const Footer = () => {
+const SocialButton = ({ children, label, href }) => {
   return (
-    <div>
-      <div className="footer">
-        <div className="insidefooter">
-          <h2>Stay Conneted</h2>
-          <p>Get updates right after launcing.</p>
-          <input type="email" placeholder="Enter Email..." />
-          <button>Sign me up</button>
-          <div className="icons">
-            <Icon as={FaYoutube} w={6} h={6} />
-            <Icon as={FaInstagram} w={6} h={6} />
-            <Icon as={FaLinkedin} w={6} h={6} />
-            <Icon as={FaTwitter} w={6} h={6} />
-          </div>
-        </div>
-        <div className="insidefooter">
-          <h2>Privacy Policy</h2>
-          <p>
-            We know that you care how information about you is used and shared,
-            and we appreciate your trust that we will do so carefully and
-            sensibly.That's why we don't share personal information with anyone.
-          </p>
-        </div>
-        <div className="insidefooter">
-          <h2>Our Mission</h2>
-          <p>
-            Our vision is to be Earth’s most customer-centric company; to build
-            a place where people can come to find and discover anything they
-            might want to buy online.
-          </p>
-        </div>
-      </div>
-      <div className="bottom">
-        <p>@ 2022 All Media Solutions</p>
-        <p>Privacy Policy</p>
-        <p>Sitemap</p>
-        <p>Careers</p>
-        <Link to="/contactus">Contact Us</Link>
-      </div>
-    </div>
+    <chakra.button
+      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+      rounded={"full"}
+      w={8}
+      h={8}
+      cursor={"pointer"}
+      as={"a"}
+      href={href}
+      display={"inline-flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      transition={"background 0.3s ease"}
+      _hover={{
+        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+      }}
+    >
+      <VisuallyHidden>{label}</VisuallyHidden>
+      {children}
+    </chakra.button>
   );
 };
 
-export default Footer;
+export default function Footer() {
+  return (
+    <Box bg="black" color={useColorModeValue("white", "gray.200")} p="1rem 0">
+      <Container
+        as={Stack}
+        maxW={"6xl"}
+        py={4}
+        direction={{ base: "column", md: "row" }}
+        spacing={4}
+        justify={{ base: "center", md: "space-between" }}
+        align={{ base: "center", md: "center" }}
+      >
+        <Text>Made with ❤️ By Jitesh Sirohi</Text>
+        <Text textAlign="center">
+          © 2022 AN INDIAN BRAND. All rights reserved
+        </Text>
+        <Stack direction={"row"} spacing={6}>
+          <SocialButton label={"Twitter"} href={"#"}>
+            <FaTwitter />
+          </SocialButton>
+          <SocialButton label={"YouTube"} href={"#"}>
+            <FaYoutube />
+          </SocialButton>
+          <SocialButton label={"Instagram"} href={"#"}>
+            <FaInstagram />
+          </SocialButton>
+        </Stack>
+      </Container>
+    </Box>
+  );
+}

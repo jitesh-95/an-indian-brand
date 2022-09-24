@@ -14,6 +14,8 @@ const initialState = {
   isLoading: false,
   isError: false,
   cartProducts: [],
+  cartTotal: 0,
+  totalQuantity: 0,
 };
 
 export const cartReducer = (state = initialState, { type, payload }) => {
@@ -22,7 +24,24 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: true };
     }
     case GET_USER_PRODUCTS_SUCCESS: {
-      return { ...state, isLoading: false, cartProducts: payload.cartProducts };
+      let sum = 0;
+      let quant = 0;
+      if (payload.cartProducts.length > 0) {
+        sum += payload.cartProducts
+          .map((item) => item.price * item.quantity)
+          .reduce((a, b) => a + b, 0);
+
+        quant += payload.cartProducts
+          .map((item) => item.quantity)
+          .reduce((a, b) => a + b, 0);
+      }
+      return {
+        ...state,
+        isLoading: false,
+        cartProducts: payload.cartProducts,
+        cartTotal: sum,
+        totalQuantity: quant,
+      };
     }
     case GET_USER_PRODUCTS_FAILURE: {
       return { ...state, isLoading: false, isError: true };

@@ -12,9 +12,12 @@ import { FiHeart } from "react-icons/fi";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import { updateCartItem } from "../redux/appReducer/cartReducer/cartAction";
+import {
+  getProductsFromCart,
+  updateCartItem,
+} from "../redux/appReducer/cartReducer/cartAction";
 
-const CartLayout = ({ item, onClick, getProducts }) => {
+const CartLayout = ({ item, onClick }) => {
   const [itemQuantity, setItemQuantity] = useState(item.quantity);
   const isLoading = useSelector((state) => state.cartReducer.isLoading);
   const dispatch = useDispatch();
@@ -25,7 +28,7 @@ const CartLayout = ({ item, onClick, getProducts }) => {
     dispatch(updateCartItem(item._id, { quantity: itemQuantity + 1 })).then(
       (r) => {
         if (r.payload.response === true) {
-          getProducts();
+          dispatch(getProductsFromCart());
           toast({
             title: "Quantity Updated successfully 🎉",
             status: "success",
@@ -51,7 +54,7 @@ const CartLayout = ({ item, onClick, getProducts }) => {
     dispatch(updateCartItem(item._id, { quantity: itemQuantity - 1 })).then(
       (r) => {
         if (r.payload.response === true) {
-          getProducts();
+          dispatch(getProductsFromCart());
           toast({
             title: "Quantity Updated successfully 🎉",
             status: "success",
