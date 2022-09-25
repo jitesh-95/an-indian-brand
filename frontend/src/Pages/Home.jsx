@@ -22,15 +22,16 @@ const Home = () => {
     navigate("/womens");
   };
 
-  const shopPage = () => {
-    navigate("/shop");
+  const kidsPage = () => {
+    navigate("/kids");
   };
 
   return (
     <Box w="100%" position="relative" top="65" pb="4rem">
       <Box>
-        <Image w="100%" src="../.././assets/heroBanner1.webp" />
-        <Image w="100%" src="../.././assets/heroBanner2.webp" />
+        <Image w="100%" src="../.././assets/heroBanner1.png" />
+        <Image w="100%" src="../.././assets/heroBanner2.png" />
+        <Image w="100%" src="../.././assets/heroBanner3.jpg" />
       </Box>
 
       <Box
@@ -56,7 +57,13 @@ const Home = () => {
           lg: "row",
           xl: "row",
         }}
-        p={{ base: "0 1rem", sm: "0 2rem", md: "0", lg: "0 2rem", xl: "0" }}
+        p={{
+          base: "0 1rem",
+          sm: "0 2rem",
+          md: "0",
+          lg: "0 2rem",
+          xl: "0 2rem",
+        }}
       >
         <Box overflow="hidden" position="relative" boxShadow="sm">
           <Image
@@ -67,7 +74,7 @@ const Home = () => {
           />
           <Button
             fontSize={{
-              base: "1rem",
+              base: "1.2rem",
               sm: "1.5rem",
               md: "1.5rem",
               lg: "1.5rem",
@@ -97,7 +104,7 @@ const Home = () => {
           />
           <Button
             fontSize={{
-              base: "1rem",
+              base: "1.2rem",
               sm: "1.5rem",
               md: "1.5rem",
               lg: "1.5rem",
@@ -106,6 +113,89 @@ const Home = () => {
             letterSpacing={1}
             position="absolute"
             onClick={womensPage}
+            bottom="0"
+            borderRadius={0}
+            w="100%"
+            bg="rgba(255,255,255,0.01)"
+            backdropFilter="blur(10px)"
+            variant="outline"
+            transition="500ms"
+            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
+          >
+            View All
+          </Button>
+        </Box>
+      </Flex>
+
+      {/* kids  */}
+      <Flex
+        mt="3rem"
+        align="center"
+        justify="center"
+        gap={[10, 10, 8, 8, 10]}
+        direction={{
+          base: "column",
+          sm: "column",
+          md: "column",
+          lg: "row",
+          xl: "row",
+        }}
+        p={{
+          base: "0 1rem",
+          sm: "0 2rem",
+          md: "0",
+          lg: "0 2rem",
+          xl: "0 2rem",
+        }}
+      >
+        <Box overflow="hidden" position="relative" boxShadow="sm">
+          <Image
+            transition="2000ms"
+            _hover={{ transform: `scale(1.2)` }}
+            src="boyKid.jpg"
+            alt="kids"
+          />
+          <Button
+            fontSize={{
+              base: "1.2rem",
+              sm: "1.5rem",
+              md: "1.5rem",
+              lg: "1.5rem",
+              xl: "1.5rem",
+            }}
+            letterSpacing={1}
+            onClick={kidsPage}
+            position="absolute"
+            bottom="0"
+            borderRadius={0}
+            w="100%"
+            bg="rgba(255,255,255,0.01)"
+            backdropFilter="blur(10px)"
+            variant="outline"
+            transition="500ms"
+            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
+          >
+            View All
+          </Button>
+        </Box>
+        <Box overflow="hidden" position="relative" boxShadow="sm">
+          <Image
+            transition="2000ms"
+            _hover={{ transform: `scale(1.2)` }}
+            src="girlKid.jpg"
+            alt="kids"
+          />
+          <Button
+            fontSize={{
+              base: "1.2rem",
+              sm: "1.5rem",
+              md: "1.5rem",
+              lg: "1.5rem",
+              xl: "1.5rem",
+            }}
+            letterSpacing={1}
+            position="absolute"
+            onClick={kidsPage}
             bottom="0"
             borderRadius={0}
             w="100%"

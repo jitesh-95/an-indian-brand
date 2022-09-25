@@ -49,7 +49,18 @@ export default function Footer() {
       >
         <Text>Made with ❤️ By Jitesh Sirohi</Text>
         <Text textAlign="center">
-          © 2022 AN INDIAN BRAND. All rights reserved
+          © 2022{" "}
+          <span
+            style={{
+              fontWeight: "600",
+              letterSpacing: "1px",
+              fontSize: "1.1rem",
+            }}
+          >
+            {" "}
+            AN INDIAN BRAND{" "}
+          </span>{" "}
+          All rights reserved
         </Text>
         <Stack direction={"row"} spacing={6}>
           <SocialButton label={"Twitter"} href={"#"}>

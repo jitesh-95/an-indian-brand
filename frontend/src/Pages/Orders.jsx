@@ -26,7 +26,7 @@ const Orders = () => {
   }, []);
 
   return (
-    <Box position="relative" top="65" mb="10rem">
+    <Box position="relative" top="65" mb="10rem" minH="80vh">
       {isLoading ? (
         <Flex w="100%" align="center" justify="center">
           <Dna
@@ -76,6 +76,7 @@ const Orders = () => {
                   mb="0.8rem"
                   borderBottom="2px solid #2B6CB0"
                   maxW="max-content"
+                  fontWeight={600}
                 >
                   Orders On: {item.date}
                 </Text>

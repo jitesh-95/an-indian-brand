@@ -114,10 +114,12 @@ const Description = () => {
       navigate("/login", { state: { from: location.pathname } });
       return;
     }
-    let item = {
-      name: name,
-      image: image,
-      productId: _id,
+    const item = {
+      name,
+      image,
+      price,
+      sizes,
+      category,
     };
     dispatch(addProductsToWishlist(item)).then((r) => {
       if (r.payload.response === false) {
@@ -232,7 +234,8 @@ const Description = () => {
                 mb="1.5rem"
                 onChange={(e) => setSize(e.target.value)}
               >
-                {sizes.length > 0 &&
+                {sizes &&
+                  sizes.length > 0 &&
                   sizes.map((item, index) => (
                     <option key={index} value={item.filterCode}>
                       {item.filterCode}

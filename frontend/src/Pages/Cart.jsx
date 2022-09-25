@@ -88,7 +88,7 @@ const Cart = () => {
           />
         </Flex>
       ) : (
-        <Box top="81" position="relative" mb="8rem">
+        <Box top="81" position="relative" mb="8rem" minH="80vh">
           <Flex
             justify="center"
             gap={5}

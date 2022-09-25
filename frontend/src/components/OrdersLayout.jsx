@@ -22,12 +22,18 @@ const OrdersLayout = ({ item }) => {
               <Text
                 fontSize={["0.7rem", "0.9rem", "1rem"]}
                 color="blackAlpha.700"
+                fontWeight={600}
+                whiteSpace="nowrap"
+                w="13rem"
+                overflow="hidden"
+                textOverflow="ellipsis"
               >
                 {el.name}
               </Text>
               <Text
                 fontSize={["0.7rem", "0.9rem", "1rem"]}
                 color="blackAlpha.600"
+                fontWeight={600}
               >
                 ₹ {el.price}
               </Text>

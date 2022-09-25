@@ -14,6 +14,7 @@ import Orders from "./Orders";
 import Payment from "./Payment";
 import Signup from "./Signup";
 import Womens from "./Womens";
+import WishList from "./WishList";
 
 const MainRoutes = () => {
   return (
@@ -56,6 +57,14 @@ const MainRoutes = () => {
         element={
           <RequireAuth>
             <Orders />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/wishlist"
+        element={
+          <RequireAuth>
+            <WishList />
           </RequireAuth>
         }
       />

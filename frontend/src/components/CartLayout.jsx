@@ -8,7 +8,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { FiHeart } from "react-icons/fi";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
@@ -147,9 +146,9 @@ const CartLayout = ({ item, onClick }) => {
           </Flex>
         </Box>
         <Flex direction="column" gap={2}>
-          <Icon as={FiHeart} fontSize="1.4rem" cursor="pointer" />
           <Icon
             as={MdOutlineDeleteForever}
+            _hover={{ color: "#F56565" }}
             fontSize="1.5rem"
             cursor="pointer"
             onClick={onClick}
