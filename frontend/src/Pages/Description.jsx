@@ -21,11 +21,18 @@ import {
   addProductsToCart,
   getProductsFromCart,
 } from "../redux/appReducer/cartReducer/cartAction";
+import {
+  addProductsToWishlist,
+  getWishlistProducts,
+} from "../redux/appReducer/wishlistReducer/wishlistAction";
 // import { setItemLocal } from "../utils/localStorage";
 
 const Description = () => {
   const isAuth = useSelector((state) => state.authReducer.isAuth);
   const isLoading = useSelector((state) => state.cartReducer.isLoading);
+  const isWishlistLoading = useSelector(
+    (state) => state.wishlistReducer.isLoading
+  );
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,6 +43,7 @@ const Description = () => {
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState();
   const [toggle, setToggle] = useState(false);
+  const [wishToggle, setWishToggle] = useState(false);
 
   // adding to cart
   const handleCart = () => {
@@ -91,6 +99,49 @@ const Description = () => {
         setToggle(false);
       }, 2000);
       dispatch(getProductsFromCart());
+    });
+  };
+
+  // favourite products
+  const handleWishlist = () => {
+    if (!isAuth) {
+      toast({
+        title: "Please login first!",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      navigate("/login", { state: { from: location.pathname } });
+      return;
+    }
+    let item = {
+      name: name,
+      image: image,
+      productId: _id,
+    };
+    dispatch(addProductsToWishlist(item)).then((r) => {
+      if (r.payload.response === false) {
+        return toast({
+          title: "Item is already added!",
+          status: "info",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      }
+      toast({
+        title: "Congratulations 🎉",
+        description: "Item wishlisted successfully",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      setWishToggle(true);
+      setTimeout(() => {
+        setWishToggle(false);
+      }, 2000);
+      dispatch(getWishlistProducts());
     });
   };
 
@@ -229,6 +280,7 @@ const Description = () => {
                   />
                 </Button>
                 <Button
+                  isLoading={isWishlistLoading}
                   size="lg"
                   bg="#FEB2B2"
                   transition="500ms"
@@ -238,9 +290,14 @@ const Description = () => {
                   _active={{ transform: "scale(0.9)", bg: "#FEB2B2" }}
                   _hover={{ bg: "#F56565", letterSpacing: "1px" }}
                   borderRadius={0}
+                  onClick={handleWishlist}
                 >
-                  Add to Wish List{" "}
-                  <Icon as={FiHeart} ml="0.6rem" fontSize="1.3rem" />
+                  {wishToggle ? "WishListed" : "Add to Wish List"}
+                  <Icon
+                    as={wishToggle ? MdDone : FiHeart}
+                    ml="0.6rem"
+                    fontSize="1.3rem"
+                  />
                 </Button>
               </Flex>
               <Heading fontSize="1.4rem" fontWeight={600} mt="1.5rem">

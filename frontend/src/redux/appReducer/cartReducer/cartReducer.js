@@ -5,6 +5,9 @@ import {
   DELETE_USER_PRODUCTS_FAILURE,
   DELETE_USER_PRODUCTS_REQUEST,
   DELETE_USER_PRODUCTS_SUCCESS,
+  EMPTY_USER_PRODUCTS_FAILURE,
+  EMPTY_USER_PRODUCTS_REQUEST,
+  EMPTY_USER_PRODUCTS_SUCCESS,
   GET_USER_PRODUCTS_FAILURE,
   GET_USER_PRODUCTS_REQUEST,
   GET_USER_PRODUCTS_SUCCESS,
@@ -65,13 +68,13 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: false, isError: true };
     }
 
-    case DELETE_USER_PRODUCTS_REQUEST: {
+    case EMPTY_USER_PRODUCTS_REQUEST: {
       return { ...state, isLoading: true };
     }
-    case DELETE_USER_PRODUCTS_SUCCESS: {
+    case EMPTY_USER_PRODUCTS_SUCCESS: {
       return { ...state, isLoading: false, cartProducts: [] };
     }
-    case DELETE_USER_PRODUCTS_FAILURE: {
+    case EMPTY_USER_PRODUCTS_FAILURE: {
       return { ...state, isLoading: false, isError: true };
     }
 

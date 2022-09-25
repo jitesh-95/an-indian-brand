@@ -11,6 +11,7 @@ import { womenReducer } from "./appReducer/womenReducer/womenReducer";
 import { kidsReducer } from "./appReducer/kidsReducer/kidsReducer";
 import { cartReducer } from "./appReducer/cartReducer/cartReducer";
 import { orderReducer } from "./appReducer/ordersReducer/ordersReducer";
+import { wishlistReducer } from "./appReducer/wishlistReducer/wishlistReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,6 +22,7 @@ const rootReducers = combineReducers({
   kidsReducer,
   cartReducer,
   orderReducer,
+  wishlistReducer,
 });
 
 export const store = legacy_createStore(
