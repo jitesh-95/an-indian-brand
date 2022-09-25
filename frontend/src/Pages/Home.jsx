@@ -53,14 +53,14 @@ const Home = () => {
         direction={{
           base: "column",
           sm: "column",
-          md: "column",
+          md: "row",
           lg: "row",
           xl: "row",
         }}
         p={{
           base: "0 1rem",
           sm: "0 2rem",
-          md: "0",
+          md: "0 1.5rem",
           lg: "0 2rem",
           xl: "0 2rem",
         }}
@@ -136,14 +136,14 @@ const Home = () => {
         direction={{
           base: "column",
           sm: "column",
-          md: "column",
+          md: "row",
           lg: "row",
           xl: "row",
         }}
         p={{
           base: "0 1rem",
           sm: "0 2rem",
-          md: "0",
+          md: "0 1.5rem",
           lg: "0 2rem",
           xl: "0 2rem",
         }}
