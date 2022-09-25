@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const WishlistSchema = mongoose.Schema({
   name: String,
   image: String,
-  productId: String,
+  price: Number,
+  category: String,
+  code: String,
+  sizes: Array,
   userId: String,
 });
 

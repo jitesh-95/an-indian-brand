@@ -9,10 +9,12 @@ wishlistRouter.get("/", async (req, res) => {
 });
 
 wishlistRouter.post("/addToWishlist", async (req, res) => {
-  const { name, image, productId, userId } = req.body;
+  const { name, image, price, sizes, quantity, category, userId } = req.body;
   const alreadyExist = await WishlistModel.findOne({
+    name,
     userId,
-    productId,
+    category,
+    price,
   });
   if (alreadyExist) {
     return res.send({ message: "Already added", response: false });
@@ -20,7 +22,10 @@ wishlistRouter.post("/addToWishlist", async (req, res) => {
   const item = WishlistModel({
     name,
     image,
-    productId,
+    price,
+    sizes,
+    quantity,
+    category,
     userId,
   });
   await item.save();
