@@ -24,7 +24,7 @@ export const register = (payload) => (dispatch) => {
 export const login = (payload) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   return axios
-    .post("http://localhost:8080/user/login", payload, {
+    .post("https://an-indian-brand.herokuapp.com/user/login", payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },

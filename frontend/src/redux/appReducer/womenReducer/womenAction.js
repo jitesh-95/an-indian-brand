@@ -8,7 +8,9 @@ import {
 export const getProductsWomen = (page, sortBy) => (dispatch) => {
   dispatch({ type: GET_PRODUCTS_REQUEST_WOMEN });
   return axios
-    .get(`http://localhost:8080/products/women?page=${page}&sortBy=${sortBy}`)
+    .get(
+      `https://an-indian-brand.herokuapp.com/products/women?page=${page}&sortBy=${sortBy}`
+    )
     .then((r) =>
       dispatch({ type: GET_PRODUCTS_SUCCESS_WOMEN, payload: r.data })
     )

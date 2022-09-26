@@ -120,7 +120,7 @@ const Checkout = () => {
   };
 
   return (
-    <Box position="relative" top="81">
+    <Box position="relative" top="81" minH="95vh">
       <Flex
         gap={10}
         justify="center"

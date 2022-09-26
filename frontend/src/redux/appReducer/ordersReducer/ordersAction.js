@@ -15,7 +15,7 @@ let token = getItemLocal("indianBrandToken");
 export const getOrders = () => (dispatch) => {
   dispatch({ type: GET_ORDERS_REQUEST });
   return axios
-    .get(`http://localhost:8080/orders`, {
+    .get(`https://an-indian-brand.herokuapp.com/orders`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -28,7 +28,7 @@ export const getOrders = () => (dispatch) => {
 export const addOrders = (payload) => (dispatch) => {
   dispatch({ type: ADD_ORDERS_REQUEST });
   return axios
-    .post(`http://localhost:8080/orders/addToOrders`, payload, {
+    .post(`https://an-indian-brand.herokuapp.com/orders/addToOrders`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,

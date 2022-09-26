@@ -18,7 +18,7 @@ let token = getItemLocal("indianBrandToken");
 export const getWishlistProducts = () => (dispatch) => {
   dispatch({ type: GET_USER_WISHLIST_PRODUCTS_REQUEST });
   return axios
-    .get(`http://localhost:8080/wishlist`, {
+    .get(`https://an-indian-brand.herokuapp.com/wishlist`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -35,12 +35,16 @@ export const getWishlistProducts = () => (dispatch) => {
 export const addProductsToWishlist = (payload) => (dispatch) => {
   dispatch({ type: ADD_USER_WISHLIST_PRODUCTS_REQUEST });
   return axios
-    .post(`http://localhost:8080/wishlist/addToWishlist`, payload, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + token,
-      },
-    })
+    .post(
+      `https://an-indian-brand.herokuapp.com/wishlist/addToWishlist`,
+      payload,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
     .then((res) =>
       dispatch({ type: ADD_USER_WISHLIST_PRODUCTS_SUCCESS, payload: res.data })
     )
@@ -52,7 +56,7 @@ export const addProductsToWishlist = (payload) => (dispatch) => {
 export const deleteWishlistItem = (id) => (dispatch) => {
   dispatch({ type: DELETE_USER_WISHLIST_PRODUCTS_REQUEST });
   return axios
-    .delete(`http://localhost:8080/wishlist/delete/${id}`, {
+    .delete(`https://an-indian-brand.herokuapp.com/wishlist/delete/${id}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,

@@ -23,7 +23,7 @@ let token = getItemLocal("indianBrandToken");
 export const getProductsFromCart = () => (dispatch) => {
   dispatch({ type: GET_USER_PRODUCTS_REQUEST });
   return axios
-    .get(`http://localhost:8080/cart`, {
+    .get(`https://an-indian-brand.herokuapp.com/cart`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -40,7 +40,7 @@ export const getProductsFromCart = () => (dispatch) => {
 export const addProductsToCart = (payload) => (dispatch) => {
   dispatch({ type: ADD_USER_PRODUCTS_REQUEST });
   return axios
-    .post(`http://localhost:8080/cart/addToCart`, payload, {
+    .post(`https://an-indian-brand.herokuapp.com/cart/addToCart`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -57,7 +57,7 @@ export const addProductsToCart = (payload) => (dispatch) => {
 export const deleteCartItem = (id) => (dispatch) => {
   dispatch({ type: DELETE_USER_PRODUCTS_REQUEST });
   return axios
-    .delete(`http://localhost:8080/cart/delete/${id}`, {
+    .delete(`https://an-indian-brand.herokuapp.com/cart/delete/${id}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -74,7 +74,7 @@ export const deleteCartItem = (id) => (dispatch) => {
 export const updateCartItem = (id, payload) => (dispatch) => {
   dispatch({ type: UPDATE_USER_PRODUCTS_REQUEST });
   return axios
-    .patch(`http://localhost:8080/cart/update/${id}`, payload, {
+    .patch(`https://an-indian-brand.herokuapp.com/update/${id}`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -91,7 +91,7 @@ export const updateCartItem = (id, payload) => (dispatch) => {
 export const emptyCart = () => (dispatch) => {
   dispatch({ type: EMPTY_USER_PRODUCTS_REQUEST });
   return axios
-    .get(`http://localhost:8080/cart/empty`, {
+    .get(`https://an-indian-brand.herokuapp.com/cart/empty`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,

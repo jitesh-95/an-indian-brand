@@ -19,7 +19,10 @@ import { useNavigate } from "react-router-dom";
 import Cleave from "cleave.js/react";
 import "./CSS/Payment.css";
 import { RotatingSquare } from "react-loader-spinner";
-import { addOrders } from "../redux/appReducer/ordersReducer/ordersAction";
+import {
+  addOrders,
+  getOrders,
+} from "../redux/appReducer/ordersReducer/ordersAction";
 import { emptyCart } from "../redux/appReducer/cartReducer/cartAction";
 
 const imageUrls = [
@@ -135,6 +138,7 @@ const Payment = () => {
       };
       // adding products in orders
       dispatch(addOrders(payload));
+      dispatch(getOrders());
       dispatch(emptyCart());
       navigate("/orders");
     }, 5000);
