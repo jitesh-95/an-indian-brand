@@ -46,7 +46,7 @@ const Kids = () => {
   // setting params
   useEffect(() => {
     const params = {};
-    page && (params.page = page);
+    page && page > 1 && (params.page = page);
     urlSort && (params.sortBy = urlSort);
 
     setSearchParams(params);

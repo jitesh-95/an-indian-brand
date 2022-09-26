@@ -45,7 +45,7 @@ const Mens = () => {
   // setting params
   useEffect(() => {
     const params = {};
-    page && (params.page = page);
+    page && page > 1 && (params.page = page);
     urlSort && (params.sortBy = urlSort);
 
     setSearchParams(params);
@@ -106,6 +106,7 @@ const Mens = () => {
             </Text>
           </Heading>
           <FilterSort />
+
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",

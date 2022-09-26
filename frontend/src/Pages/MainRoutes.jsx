@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import RequireAuth from "../hoc/RequireAuth";
 import AboutUs from "./AboutUs";
 import Cart from "./Cart";
@@ -15,60 +15,138 @@ import Payment from "./Payment";
 import Signup from "./Signup";
 import Womens from "./Womens";
 import WishList from "./WishList";
+import { AnimatePresence } from "framer-motion";
+import Transition from "../hoc/Transition";
 
 const MainRoutes = () => {
+  const location = useLocation();
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/aboutus" element={<AboutUs />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/mens" element={<Mens />} />
-      <Route path="/womens" element={<Womens />} />
-      <Route path="/kids" element={<Kids />} />
-      <Route path="/description/:ProductId" element={<Description />} />
-      <Route path="/contactus" element={<ContactUs />} />
-      <Route
-        path="/cart"
-        element={
-          <RequireAuth>
-            <Cart />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/payment"
-        element={
-          <RequireAuth>
-            <Payment />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/checkout"
-        element={
-          <RequireAuth>
-            <Checkout />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/orders"
-        element={
-          <RequireAuth>
-            <Orders />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/wishlist"
-        element={
-          <RequireAuth>
-            <WishList />
-          </RequireAuth>
-        }
-      />
-    </Routes>
+    <AnimatePresence>
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <Transition>
+              <Home />
+            </Transition>
+          }
+        />
+        <Route
+          path="/aboutus"
+          element={
+            <Transition>
+              <AboutUs />
+            </Transition>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Transition>
+              <Login />
+            </Transition>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Transition>
+              <Signup />
+            </Transition>
+          }
+        />
+        <Route
+          path="/mens"
+          element={
+            <Transition>
+              <Mens />
+            </Transition>
+          }
+        />
+        <Route
+          path="/womens"
+          element={
+            <Transition>
+              <Womens />
+            </Transition>
+          }
+        />
+        <Route
+          path="/kids"
+          element={
+            <Transition>
+              <Kids />
+            </Transition>
+          }
+        />
+        <Route
+          path="/description/:ProductId"
+          element={
+            <Transition>
+              <Description />
+            </Transition>
+          }
+        />
+        <Route
+          path="/contactus"
+          element={
+            <Transition>
+              <ContactUs />
+            </Transition>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Transition>
+              <RequireAuth>
+                <Cart />
+              </RequireAuth>
+            </Transition>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <Transition>
+              <RequireAuth>
+                <Payment />
+              </RequireAuth>
+            </Transition>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <Transition>
+              <RequireAuth>
+                <Checkout />
+              </RequireAuth>
+            </Transition>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <Transition>
+              <RequireAuth>
+                <Orders />
+              </RequireAuth>
+            </Transition>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <Transition>
+              <RequireAuth>
+                <WishList />
+              </RequireAuth>
+            </Transition>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
   );
 };
 

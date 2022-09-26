@@ -11,6 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Slider from "react-slick";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,6 +36,22 @@ const Home = () => {
 
   const kidsPage = () => {
     navigate("/kids");
+  };
+
+  const cardVariants = {
+    offscreen: {
+      opacity: 0,
+      x: -100,
+    },
+    onscreen: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 1.5,
+      },
+    },
   };
 
   return (
@@ -62,103 +79,113 @@ const Home = () => {
       >
         <Text>POPULAR RIGHT NOW</Text>
       </Box>
-      <Flex
-        mt="3rem"
-        align="center"
-        justify="center"
-        gap={[10, 10, 8, 8, 10]}
-        direction={{
-          base: "column",
-          sm: "column",
-          md: "row",
-          lg: "row",
-          xl: "row",
-        }}
-        p={{
-          base: "0 1rem",
-          sm: "0 2rem",
-          md: "0 1.5rem",
-          lg: "0 2rem",
-          xl: "0 2rem",
-        }}
-      >
-        <Box overflow="hidden" position="relative" boxShadow="sm">
-          <Image
-            transition="2000ms"
-            _hover={{ transform: `scale(1.2)` }}
-            src="mens.jpg"
-            alt="mens"
-          />
-          <Button
-            fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
-            letterSpacing={1}
-            onClick={mensPage}
-            position="absolute"
-            bottom="0"
-            borderRadius={0}
-            w="100%"
-            color="telegram.900"
-            bg="rgba(255,255,255,0.01)"
-            backdropFilter="blur(10px)"
-            variant="outline"
-            transition="500ms"
-            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
-          >
-            View All
-          </Button>
-        </Box>
-        <Box overflow="hidden" position="relative" boxShadow="sm">
-          <Image
-            transition="2000ms"
-            _hover={{ transform: `scale(1.2)` }}
-            src="womens.jpg"
-            alt="womens"
-          />
-          <Button
-            fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
-            letterSpacing={1}
-            position="absolute"
-            onClick={womensPage}
-            bottom="0"
-            borderRadius={0}
-            w="100%"
-            color="telegram.900"
-            bg="rgba(255,255,255,0.01)"
-            backdropFilter="blur(10px)"
-            variant="outline"
-            transition="500ms"
-            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
-          >
-            View All
-          </Button>
-        </Box>
 
-        <Box overflow="hidden" position="relative" boxShadow="sm">
-          <Image
-            transition="2000ms"
-            _hover={{ transform: `scale(1.2)` }}
-            src="kids.jpg"
-            alt="kids"
-          />
-          <Button
-            fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
-            letterSpacing={1}
-            onClick={kidsPage}
-            position="absolute"
-            bottom="0"
-            borderRadius={0}
-            w="100%"
-            color="telegram.900"
-            bg="rgba(255,255,255,0.01)"
-            backdropFilter="blur(10px)"
-            variant="outline"
-            transition="500ms"
-            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
+      <motion.div
+        initial="offscreen"
+        whileInView="onscreen"
+        viewport={{ once: false }}
+      >
+        <motion.div variants={cardVariants}>
+          <Flex
+            mt="3rem"
+            align="center"
+            justify="center"
+            gap={[10, 10, 8, 8, 10]}
+            direction={{
+              base: "column",
+              sm: "column",
+              md: "row",
+              lg: "row",
+              xl: "row",
+            }}
+            p={{
+              base: "0 1rem",
+              sm: "0 2rem",
+              md: "0 1.5rem",
+              lg: "0 2rem",
+              xl: "0 2rem",
+            }}
           >
-            View All
-          </Button>
-        </Box>
-      </Flex>
+            <Box overflow="hidden" position="relative" boxShadow="sm">
+              <Image
+                transition="2000ms"
+                _hover={{ transform: `scale(1.2)` }}
+                src="mens.jpg"
+                alt="mens"
+              />
+              <Button
+                fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
+                letterSpacing={1}
+                onClick={mensPage}
+                position="absolute"
+                bottom="0"
+                borderRadius={0}
+                w="100%"
+                color="telegram.900"
+                bg="rgba(255,255,255,0.01)"
+                backdropFilter="blur(10px)"
+                variant="outline"
+                transition="500ms"
+                _hover={{ bg: "telegram.900", color: "white", border: "none" }}
+              >
+                View All
+              </Button>
+            </Box>
+
+            <Box overflow="hidden" position="relative" boxShadow="sm">
+              <Image
+                transition="2000ms"
+                _hover={{ transform: `scale(1.2)` }}
+                src="womens.jpg"
+                alt="womens"
+              />
+              <Button
+                fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
+                letterSpacing={1}
+                position="absolute"
+                onClick={womensPage}
+                bottom="0"
+                borderRadius={0}
+                w="100%"
+                color="telegram.900"
+                bg="rgba(255,255,255,0.01)"
+                backdropFilter="blur(10px)"
+                variant="outline"
+                transition="500ms"
+                _hover={{ bg: "telegram.900", color: "white", border: "none" }}
+              >
+                View All
+              </Button>
+            </Box>
+
+            <Box overflow="hidden" position="relative" boxShadow="sm">
+              <Image
+                transition="2000ms"
+                _hover={{ transform: `scale(1.2)` }}
+                src="kids.jpg"
+                alt="kids"
+              />
+              <Button
+                fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
+                letterSpacing={1}
+                onClick={kidsPage}
+                position="absolute"
+                bottom="0"
+                borderRadius={0}
+                w="100%"
+                color="telegram.900"
+                bg="rgba(255,255,255,0.01)"
+                backdropFilter="blur(10px)"
+                variant="outline"
+                transition="500ms"
+                _hover={{ bg: "telegram.900", color: "white", border: "none" }}
+              >
+                View All
+              </Button>
+            </Box>
+          </Flex>
+        </motion.div>
+      </motion.div>
 
       {/* free shipping  */}
       <Box

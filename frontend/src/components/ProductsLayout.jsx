@@ -1,10 +1,31 @@
 import { Box, Button, Flex, GridItem, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ProductsLayout = ({ image, name, price, _id, onClick }) => {
+  const cardVariants = {
+    offscreen: {
+      opacity: 0,
+      x: -100,
+    },
+    onscreen: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 1.5,
+      },
+    },
+  };
   return (
-    <>
+    <motion.div
+      variants={cardVariants}
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: false }}
+    >
       <Link to={`/description/${_id}`} onClick={onClick}>
         <GridItem
           p="0.6rem 0.6rem 1rem"
@@ -56,7 +77,7 @@ const ProductsLayout = ({ image, name, price, _id, onClick }) => {
           </Flex>
         </GridItem>
       </Link>
-    </>
+    </motion.div>
   );
 };
 
