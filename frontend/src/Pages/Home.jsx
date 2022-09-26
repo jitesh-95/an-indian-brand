@@ -11,43 +11,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Slider from "react-slick";
-import { GrPrevious, GrNext } from "react-icons/gr";
-
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        background: "black",
-        borderRadius: "50%",
-        transform: "translate(-60px)",
-        zIndex: 10,
-      }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        background: "black",
-        borderRadius: "50%",
-        transform: "translate(60px)",
-        zIndex: 10,
-      }}
-      onClick={onClick}
-    />
-  );
-}
 
 const Home = () => {
   const navigate = useNavigate();
@@ -60,8 +23,7 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     pauseOnHover: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    arrows: false,
   };
 
   const mensPage = () => {
@@ -92,7 +54,7 @@ const Home = () => {
       <Box
         mt={{ base: "3rem", sm: "5rem", md: "5rem", lg: "8rem", xl: "10rem" }}
         textAlign="center"
-        fontSize="2rem"
+        fontSize={["1.1rem", "2rem"]}
         fontWeight={700}
         letterSpacing={2}
         fontStyle="italic"
@@ -128,19 +90,14 @@ const Home = () => {
             alt="mens"
           />
           <Button
-            fontSize={{
-              base: "1.2rem",
-              sm: "1.5rem",
-              md: "1.5rem",
-              lg: "1.5rem",
-              xl: "1.5rem",
-            }}
+            fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
             letterSpacing={1}
             onClick={mensPage}
             position="absolute"
             bottom="0"
             borderRadius={0}
             w="100%"
+            color="telegram.900"
             bg="rgba(255,255,255,0.01)"
             backdropFilter="blur(10px)"
             variant="outline"
@@ -158,19 +115,14 @@ const Home = () => {
             alt="womens"
           />
           <Button
-            fontSize={{
-              base: "1.2rem",
-              sm: "1.5rem",
-              md: "1.5rem",
-              lg: "1.5rem",
-              xl: "1.5rem",
-            }}
+            fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
             letterSpacing={1}
             position="absolute"
             onClick={womensPage}
             bottom="0"
             borderRadius={0}
             w="100%"
+            color="telegram.900"
             bg="rgba(255,255,255,0.01)"
             backdropFilter="blur(10px)"
             variant="outline"
@@ -180,80 +132,23 @@ const Home = () => {
             View All
           </Button>
         </Box>
-      </Flex>
 
-      {/* kids  */}
-      <Flex
-        mt="3rem"
-        align="center"
-        justify="center"
-        gap={[10, 10, 8, 8, 10]}
-        direction={{
-          base: "column",
-          sm: "column",
-          md: "row",
-          lg: "row",
-          xl: "row",
-        }}
-        p={{
-          base: "0 1rem",
-          sm: "0 2rem",
-          md: "0 1.5rem",
-          lg: "0 2rem",
-          xl: "0 2rem",
-        }}
-      >
         <Box overflow="hidden" position="relative" boxShadow="sm">
           <Image
             transition="2000ms"
             _hover={{ transform: `scale(1.2)` }}
-            src="boyKid.jpg"
+            src="kids.jpg"
             alt="kids"
           />
           <Button
-            fontSize={{
-              base: "1.2rem",
-              sm: "1.5rem",
-              md: "1.5rem",
-              lg: "1.5rem",
-              xl: "1.5rem",
-            }}
+            fontSize={["1.2rem", "1.4rem", "1.3rem", "1.5rem"]}
             letterSpacing={1}
             onClick={kidsPage}
             position="absolute"
             bottom="0"
             borderRadius={0}
             w="100%"
-            bg="rgba(255,255,255,0.01)"
-            backdropFilter="blur(10px)"
-            variant="outline"
-            transition="500ms"
-            _hover={{ bg: "telegram.900", color: "white", border: "none" }}
-          >
-            View All
-          </Button>
-        </Box>
-        <Box overflow="hidden" position="relative" boxShadow="sm">
-          <Image
-            transition="2000ms"
-            _hover={{ transform: `scale(1.2)` }}
-            src="girlKid.jpg"
-            alt="kids"
-          />
-          <Button
-            fontSize={{
-              base: "1.2rem",
-              sm: "1.5rem",
-              md: "1.5rem",
-              lg: "1.5rem",
-              xl: "1.5rem",
-            }}
-            letterSpacing={1}
-            position="absolute"
-            onClick={kidsPage}
-            bottom="0"
-            borderRadius={0}
-            w="100%"
+            color="telegram.900"
             bg="rgba(255,255,255,0.01)"
             backdropFilter="blur(10px)"
             variant="outline"
@@ -267,7 +162,11 @@ const Home = () => {
 
       {/* free shipping  */}
       <Box
-        bgGradient="radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(121,9,38,0.7934524151457458) 35%, rgba(0,212,255,1) 100%)"
+        bgGradient={[
+          "radial-gradient(circle, rgba(2,1,29,0.9727241238292192) 0%, rgba(17,94,133,0.8690826672465861) 63%, rgba(222,217,219,0.9643207624846813) 100%)",
+          "radial-gradient(circle, rgba(2,1,29,0.9727241238292192) 0%, rgba(17,94,133,0.8690826672465861) 53%, rgba(222,217,219,0.9643207624846813) 100%)",
+          "radial-gradient(circle, rgba(2,1,29,0.9727241238292192) 0%, rgba(17,94,133,0.8690826672465861) 34%, rgba(222,217,219,0.9643207624846813) 100%)",
+        ]}
         bgClip="border-box"
         textAlign="center"
         color="white"
@@ -277,21 +176,27 @@ const Home = () => {
         <Box mb="1.5rem">
           <Text
             fontWeight={700}
-            fontSize="1.5rem"
+            fontSize={["1.1rem", "1.5rem"]}
             letterSpacing={1}
-            display="inline-block"
-            mr="0.5rem"
           >
-            An Indian Brand{" "}
-          </Text>
-          <Text fontSize="1.5rem" display="inline-block">
-            UNLOCKED
+            An Indian Brand <span style={{ fontWeight: 500 }}>UNLOCKED</span>
           </Text>
         </Box>
-        <Heading w="20rem" m="auto" mb="1rem">
+        <Heading
+          maxW={["18rem", "20rem"]}
+          m="auto"
+          mb="1rem"
+          fontSize={["1.3rem", "1.5rem", "2rem"]}
+        >
           FREE SHIPPING, EXCLUSIVES & MORE
         </Heading>
-        <Text w="30rem" m="auto" fontSize="1.2rem" lineHeight={1.5}>
+        <Text
+          w={["18rem", "25rem", "30rem"]}
+          m="auto"
+          fontSize={["1rem", "1.2rem"]}
+          lineHeight={1.5}
+          fontStyle="italic"
+        >
           You kick it hard with style and fitness. Now get rewarded for it with
           a loyalty program that gets you.
         </Text>

@@ -27,7 +27,7 @@ const ScrollToTop = () => {
   window.addEventListener("scroll", toggleVisible);
 
   return (
-    <Box position="fixed" bottom={8} right={8}>
+    <Box position="fixed" bottom={[5, 6, 8]} right={[5, 6, 8]}>
       <Icon
         as={FaArrowCircleUp}
         color="blackAlpha.700"
