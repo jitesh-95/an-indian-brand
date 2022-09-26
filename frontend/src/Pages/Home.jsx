@@ -1,8 +1,53 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Faq from "../components/Faq";
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
-// import axios from "axios";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Icon,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import Slider from "react-slick";
+import { GrPrevious, GrNext } from "react-icons/gr";
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        background: "black",
+        borderRadius: "50%",
+        transform: "translate(-60px)",
+        zIndex: 10,
+      }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        background: "black",
+        borderRadius: "50%",
+        transform: "translate(60px)",
+        zIndex: 10,
+      }}
+      onClick={onClick}
+    />
+  );
+}
 
 const Home = () => {
   const navigate = useNavigate();
@@ -10,9 +55,13 @@ const Home = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
+    autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+    pauseOnHover: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
 
   const mensPage = () => {
@@ -28,11 +77,17 @@ const Home = () => {
 
   return (
     <Box w="100%" position="relative" top="65" pb="4rem">
-      <Box>
-        <Image w="100%" src="../.././assets/heroBanner1.png" />
-        <Image w="100%" src="../.././assets/heroBanner2.png" />
-        <Image w="100%" src="../.././assets/heroBanner3.jpg" />
-      </Box>
+      <Slider {...settings}>
+        <Box>
+          <Image w="100%" src="../.././assets/heroBanner1copy.png" />
+        </Box>
+        <Box>
+          <Image w="100%" src="../.././assets/heroBanner2.png" />
+        </Box>
+        <Box>
+          <Image w="100%" src="../.././assets/heroBanner3.jpg" />
+        </Box>
+      </Slider>
 
       <Box
         mt={{ base: "3rem", sm: "5rem", md: "5rem", lg: "8rem", xl: "10rem" }}
