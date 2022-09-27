@@ -25,6 +25,7 @@ import {
   addProductsToWishlist,
   getWishlistProducts,
 } from "../redux/appReducer/wishlistReducer/wishlistAction";
+import { useEffect } from "react";
 // import { setItemLocal } from "../utils/localStorage";
 
 const Description = () => {
@@ -101,6 +102,13 @@ const Description = () => {
       dispatch(getProductsFromCart());
     });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = `${name} | AN INDIAN BRAND`;
+    document.title = title;
+  }, []);
 
   // favourite products
   const handleWishlist = () => {

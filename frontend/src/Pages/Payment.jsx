@@ -24,6 +24,7 @@ import {
   getOrders,
 } from "../redux/appReducer/ordersReducer/ordersAction";
 import { emptyCart } from "../redux/appReducer/cartReducer/cartAction";
+import { useEffect } from "react";
 
 const imageUrls = [
   "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png",
@@ -51,6 +52,13 @@ const Payment = () => {
   const [cardTypeUrl, setCardTypeUrl] = useState(
     "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png"
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Pay | AN INDIAN BRAND";
+    document.title = title;
+  }, []);
 
   const handleNum = (e) => {
     setCreditCardNum(e.target.rawValue);

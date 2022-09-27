@@ -21,36 +21,31 @@ import FilterSort from "../components/FilterSort";
 const Kids = () => {
   const allProducts = useSelector((state) => state.kidsReducer.kidsProducts);
   const isLoading = useSelector((state) => state.kidsReducer.isLoading);
+  const totalResults = useSelector((state) => state.kidsReducer.totalProducts);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlPage = searchParams.get("page");
   const urlSort = searchParams.get("sortBy");
   const [page, setPage] = useState(+urlPage || 1);
-  const [totalResults, setTotalResults] = useState();
 
   const dispatch = useDispatch();
 
   //calling one time
   useEffect(() => {
-    dispatch(getProductsKids(page, urlSort))
-      .then((r) => {
-        if (r.type === "GET_PRODUCTS_SUCCESS_KIDS") {
-          setTotalResults(r.payload.total);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [page, urlSort]);
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Kid's Products | AN INDIAN BRAND";
+    document.title = title;
 
-  // setting params
-  useEffect(() => {
+    dispatch(getProductsKids(page, urlSort));
+
+    // setting params
     const params = {};
     page && page > 1 && (params.page = page);
     urlSort && (params.sortBy = urlSort);
 
     setSearchParams(params);
-  }, [urlSort, page]);
+  }, [page, urlSort]);
 
   // console.log(page);
   const handleNext = () => {
@@ -68,7 +63,7 @@ const Kids = () => {
   };
 
   return (
-    <Box position="relative" top="65" mb="10rem">
+    <Box position="relative" top="65" mb="10rem" minH="80vh">
       {isLoading ? (
         <Flex w="100%" align="center" justify="center">
           <Dna

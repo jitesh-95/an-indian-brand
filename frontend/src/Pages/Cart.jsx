@@ -33,6 +33,11 @@ const Cart = () => {
   // calling the cart products
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Cart | AN INDIAN BRAND";
+    document.title = title;
+
     if (cartProducts.length === 0) {
       dispatch(getProductsFromCart());
     }
@@ -75,7 +80,7 @@ const Cart = () => {
   };
 
   return (
-    <>
+    <Box minH="95vh" top="81" position="relative">
       {isLoading ? (
         <Flex w="100%" align="center" justify="center">
           <Dna
@@ -88,7 +93,7 @@ const Cart = () => {
           />
         </Flex>
       ) : (
-        <Box top="81" position="relative" mb="8rem" minH="80vh">
+        <Box mb="8rem">
           <Flex
             justify="center"
             gap={5}
@@ -179,7 +184,7 @@ const Cart = () => {
           </Flex>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

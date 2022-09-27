@@ -8,6 +8,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   womenProducts: [],
+  totalProducts: 0,
 };
 
 export const womenReducer = (state = initialState, { type, payload }) => {
@@ -20,6 +21,7 @@ export const womenReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         womenProducts: payload.womensProducts,
+        totalProducts: payload.total,
       };
     }
     case GET_PRODUCTS_FAILURE_WOMEN: {

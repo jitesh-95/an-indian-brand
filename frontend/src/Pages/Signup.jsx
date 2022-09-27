@@ -19,6 +19,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/authReducer/authAction";
+import { useEffect } from "react";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +31,14 @@ export default function SignupCard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Signup | AN INDIAN BRAND";
+    document.title = title;
+  }, []);
+
   const handleSignup = () => {
     const params = { email, password };
     if (!email) {
@@ -41,8 +50,8 @@ export default function SignupCard() {
     dispatch(register(params)).then((r) => {
       if (r.payload.data.message === "Done") {
         toast({
-          title: "Account created.",
-          description: "We've created your account for you.",
+          title: "We've created your account successfully",
+          description: "Please login",
           status: "success",
           position: "top-right",
           duration: 2000,
@@ -158,7 +167,7 @@ export default function SignupCard() {
             <Stack pt={6}>
               <Text align={"center"}>
                 Already a user?{" "}
-                <Link to="/login" color={"blue.400"}>
+                <Link to="/login" color={"blue"}>
                   Login
                 </Link>
               </Text>

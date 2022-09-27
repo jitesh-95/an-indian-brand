@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -53,6 +54,10 @@ const Home = () => {
       },
     },
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box w="100%" position="relative" top="65" pb="4rem">

@@ -16,22 +16,33 @@ import {
   InputRightElement,
   Center,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { getProductsFromCart } from "../redux/appReducer/cartReducer/cartAction";
+import { getOrders } from "../redux/appReducer/ordersReducer/ordersAction";
+import { getWishlistProducts } from "../redux/appReducer/wishlistReducer/wishlistAction";
 import { login } from "../redux/authReducer/authAction";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const isLoading = useSelector((state) => state.authReducer.isLoading);
-
+  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [exist, setExist] = useState(false);
   const [notFilled, setNotFilled] = useState({ email: false, password: false });
   const { state } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Login | AN INDIAN BRAND";
+    document.title = title;
+  }, []);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -47,10 +58,30 @@ export default function Login() {
     if (!form.password) {
       return setNotFilled({ password: true });
     }
-    dispatch(login(form)).then((r) => {
+
+    dispatch(login(form)).then(async (r) => {
       if (r.payload.data.response === true) {
+        await localStorage.setItem("indianBrandToken", r.payload.data.token);
+
         const comingFrom = state?.from || "/";
         navigate(comingFrom, { replace: true });
+
+        // calling cart products to load for every user
+        dispatch(getProductsFromCart());
+
+        // calling orders to load for every user
+        dispatch(getOrders());
+
+        // calling wishlist products to load for every user
+        dispatch(getWishlistProducts());
+        toast({
+          title: "Logged in successfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+
         return setExist(false);
       } else {
         setExist(true);
@@ -60,12 +91,7 @@ export default function Login() {
   };
 
   return (
-    <Box
-      position="relative"
-      top="65"
-      bg={useColorModeValue("gray.50", "gray.800")}
-      pb="10rem"
-    >
+    <Box pt="4rem" bg={useColorModeValue("gray.50", "gray.800")} minH="95vh">
       <Flex>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>

@@ -33,16 +33,12 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return { ...state, isLoading: true };
     }
     case LOGIN_SUCCESS: {
-      if (payload.data.response === true) {
-        localStorage.setItem("indianBrandToken", payload.data.token);
-
-        return {
-          ...state,
-          isLoading: false,
-          isAuth: true,
-          token: payload.data.token,
-        };
-      }
+      return {
+        ...state,
+        isLoading: false,
+        isAuth: true,
+        token: payload.data.token,
+      };
     }
     case LOGIN_ERROR: {
       return { ...state, isLoading: false, isAuth: false, isError: true };

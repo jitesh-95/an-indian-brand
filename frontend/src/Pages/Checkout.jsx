@@ -17,6 +17,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useReducer } from "react";
+import { useEffect } from "react";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -85,6 +86,13 @@ const Checkout = () => {
   const toast = useToast();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Checkout | AN INDIAN BRAND";
+    document.title = title;
+  }, []);
+
   let cart = JSON.parse(localStorage.getItem("cart"));
   const subtotal =
     cart &&
@@ -120,7 +128,7 @@ const Checkout = () => {
   };
 
   return (
-    <Box position="relative" top="81" minH="95vh">
+    <Box position="relative" top="81" minH="95vh" pb="5rem">
       <Flex
         gap={10}
         justify="center"

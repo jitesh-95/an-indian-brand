@@ -1,10 +1,9 @@
 import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../hoc/RequireAuth";
 import AboutUs from "./AboutUs";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
-import ContactUs from "./ContactUs";
 import Description from "./Description";
 import Home from "./Home";
 import Kids from "./Kids";
@@ -19,10 +18,9 @@ import { AnimatePresence } from "framer-motion";
 import Transition from "../hoc/Transition";
 
 const MainRoutes = () => {
-  const location = useLocation();
   return (
     <AnimatePresence>
-      <Routes location={location} key={location.pathname}>
+      <Routes>
         <Route
           path="/"
           element={
@@ -88,61 +86,53 @@ const MainRoutes = () => {
           }
         />
         <Route
-          path="/contactus"
-          element={
-            <Transition>
-              <ContactUs />
-            </Transition>
-          }
-        />
-        <Route
           path="/cart"
           element={
-            <Transition>
-              <RequireAuth>
+            <RequireAuth>
+              <Transition>
                 <Cart />
-              </RequireAuth>
-            </Transition>
+              </Transition>
+            </RequireAuth>
           }
         />
         <Route
           path="/payment"
           element={
-            <Transition>
-              <RequireAuth>
+            <RequireAuth>
+              <Transition>
                 <Payment />
-              </RequireAuth>
-            </Transition>
+              </Transition>
+            </RequireAuth>
           }
         />
         <Route
           path="/checkout"
           element={
-            <Transition>
-              <RequireAuth>
+            <RequireAuth>
+              <Transition>
                 <Checkout />
-              </RequireAuth>
-            </Transition>
+              </Transition>
+            </RequireAuth>
           }
         />
         <Route
           path="/orders"
           element={
-            <Transition>
-              <RequireAuth>
+            <RequireAuth>
+              <Transition>
                 <Orders />
-              </RequireAuth>
-            </Transition>
+              </Transition>
+            </RequireAuth>
           }
         />
         <Route
           path="/wishlist"
           element={
-            <Transition>
-              <RequireAuth>
+            <RequireAuth>
+              <Transition>
                 <WishList />
-              </RequireAuth>
-            </Transition>
+              </Transition>
+            </RequireAuth>
           }
         />
       </Routes>

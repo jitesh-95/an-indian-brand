@@ -20,38 +20,32 @@ import FilterSort from "../components/FilterSort";
 
 const Womens = () => {
   const allProducts = useSelector((state) => state.womenReducer.womenProducts);
-
+  const totalResults = useSelector((state) => state.womenReducer.totalProducts);
   const isLoading = useSelector((state) => state.womenReducer.isLoading);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlPage = searchParams.get("page");
   const urlSort = searchParams.get("sortBy");
   const [page, setPage] = useState(+urlPage || 1);
-  const [totalResults, setTotalResults] = useState();
 
   const dispatch = useDispatch();
 
   // calling one time
   useEffect(() => {
-    dispatch(getProductsWomen(page, urlSort))
-      .then((r) => {
-        if (r.type === "GET_PRODUCTS_SUCCESS_WOMEN") {
-          setTotalResults(r.payload.total);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [page, urlSort]);
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Women's Products | AN INDIAN BRAND";
+    document.title = title;
 
-  // setting params
-  useEffect(() => {
+    dispatch(getProductsWomen(page, urlSort));
+
+    // setting params
     const params = {};
     page && page > 1 && (params.page = page);
     urlSort && (params.sortBy = urlSort);
 
     setSearchParams(params);
-  }, [urlSort, page]);
+  }, [page, urlSort]);
 
   const handleNext = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -68,7 +62,7 @@ const Womens = () => {
   };
 
   return (
-    <Box position="relative" top="65" mb="10rem">
+    <Box position="relative" top="65" mb="10rem" minH="80vh">
       {isLoading ? (
         <Flex w="100%" align="center" justify="center">
           <Dna

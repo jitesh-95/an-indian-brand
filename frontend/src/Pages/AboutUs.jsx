@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const AboutUs = () => {
   const cardVariants = {
@@ -19,6 +20,14 @@ const AboutUs = () => {
       },
     },
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "About Us | AN INDIAN BRAND";
+    document.title = title;
+  }, []);
+
   return (
     <Box
       position="relative"

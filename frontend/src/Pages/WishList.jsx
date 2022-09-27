@@ -26,6 +26,11 @@ const WishList = () => {
   const toast = useToast();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "WishList | AN INDIAN BRAND";
+    document.title = title;
+
     if (wishlistProducts.length === 0) {
       dispatch(getWishlistProducts());
     }

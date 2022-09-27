@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Heading, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
@@ -21,35 +13,30 @@ import FilterSort from "../components/FilterSort";
 const Mens = () => {
   const allProducts = useSelector((state) => state.menReducer.menProducts);
   const isLoading = useSelector((state) => state.menReducer.isLoading);
+  const totalResults = useSelector((state) => state.menReducer.totalProducts);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlPage = searchParams.get("page");
   const urlSort = searchParams.get("sortBy");
   const [page, setPage] = useState(+urlPage || 1);
-  const [totalResults, setTotalResults] = useState();
-
   const dispatch = useDispatch();
+
   //calling one time
   useEffect(() => {
-    dispatch(getProductsMen(page, urlSort))
-      .then((r) => {
-        if (r.type === "GET_PRODUCTS_SUCCESS_MEN") {
-          setTotalResults(r.payload.total);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [page, urlSort]);
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Men's Products | AN INDIAN BRAND";
+    document.title = title;
 
-  // setting params
-  useEffect(() => {
+    dispatch(getProductsMen(page, urlSort));
+
+    // setting params
     const params = {};
     page && page > 1 && (params.page = page);
     urlSort && (params.sortBy = urlSort);
 
     setSearchParams(params);
-  }, [urlSort, page]);
+  }, [page, urlSort]);
 
   const handleNext = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -66,7 +53,7 @@ const Mens = () => {
   };
 
   return (
-    <Box position="relative" top="65" mb="10rem">
+    <Box position="relative" top="65" mb="10rem" minH="80vh">
       {isLoading ? (
         <Flex w="100%" align="center" justify="center">
           <Dna

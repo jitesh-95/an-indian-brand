@@ -9,6 +9,7 @@ import {
   MenuList,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
 import { HiOutlineArrowSmDown } from "react-icons/hi";
@@ -28,11 +29,19 @@ const Navbar = () => {
   const { isLoginOpen, onLoginOpen, onLoginClose } = useDisclosure();
   const isAuth = useSelector((state) => state.authReducer.isAuth);
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleLogin = () => {
     if (isAuth) {
       dispatch(logout());
-      return navigate("/");
+      navigate("/");
+      return toast({
+        title: "Logged out Successfully",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
     }
     navigate("/login");
   };

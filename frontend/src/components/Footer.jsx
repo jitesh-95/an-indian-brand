@@ -9,7 +9,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaGithub, FaYoutube } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const SocialButton = ({ children, label, href }) => {
@@ -19,9 +19,10 @@ const SocialButton = ({ children, label, href }) => {
       rounded={"full"}
       w={8}
       h={8}
-      cursor={"pointer"}
+      cursor="pointer"
       as={"a"}
       href={href}
+      target="_blank"
       display={"inline-flex"}
       alignItems={"center"}
       justifyContent={"center"}
@@ -52,7 +53,6 @@ export default function Footer() {
       },
     },
   };
-
   return (
     <motion.div
       variants={cardVariants}
@@ -86,8 +86,11 @@ export default function Footer() {
             All rights reserved
           </Text>
           <Stack direction={"row"} spacing={6}>
-            <SocialButton label={"Twitter"} href={"#"}>
-              <FaTwitter />
+            <SocialButton
+              label={"Github"}
+              href={"https://github.com/jitesh-95/an-indian-brand"}
+            >
+              <FaGithub />
             </SocialButton>
             <SocialButton label={"YouTube"} href={"#"}>
               <FaYoutube />

@@ -15,13 +15,15 @@ import {
 
 let token = getItemLocal("indianBrandToken");
 
-export const getWishlistProducts = () => (dispatch) => {
+export const getWishlistProducts = () => async (dispatch) => {
+  let Token = await getItemLocal("indianBrandToken");
+
   dispatch({ type: GET_USER_WISHLIST_PRODUCTS_REQUEST });
   return axios
     .get(`https://an-indian-brand.herokuapp.com/wishlist`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + Token,
       },
     })
     .then((res) =>

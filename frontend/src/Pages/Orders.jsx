@@ -20,6 +20,11 @@ const Orders = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    // page title
+    const title = "Orders | AN INDIAN BRAND";
+    document.title = title;
+
     if (ordersData.length === 0) {
       dispatch(getOrders());
     }
@@ -58,7 +63,7 @@ const Orders = () => {
             YOUR ORDERS
           </Heading>
 
-          {ordersData.length > 0 ? (
+          {ordersData && ordersData.length > 0 ? (
             ordersData.map((item) => (
               <Box
                 key={item._id}

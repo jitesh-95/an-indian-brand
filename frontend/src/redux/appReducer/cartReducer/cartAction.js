@@ -20,13 +20,15 @@ import axios from "axios";
 
 let token = getItemLocal("indianBrandToken");
 
-export const getProductsFromCart = () => (dispatch) => {
+export const getProductsFromCart = () => async (dispatch) => {
+  let Token = await getItemLocal("indianBrandToken");
+
   dispatch({ type: GET_USER_PRODUCTS_REQUEST });
   return axios
     .get(`https://an-indian-brand.herokuapp.com/cart`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + Token,
       },
     })
     .then((res) =>
