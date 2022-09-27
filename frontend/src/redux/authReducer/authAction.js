@@ -12,7 +12,7 @@ import axios from "axios";
 export const register = (payload) => (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   return axios
-    .post("http://localhost:8080/user/register", payload, {
+    .post("https://an-indian-brand.herokuapp.com/user/register", payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
