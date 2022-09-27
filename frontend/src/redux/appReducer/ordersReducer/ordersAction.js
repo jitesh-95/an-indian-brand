@@ -17,7 +17,7 @@ export const getOrders = () => async (dispatch) => {
 
   dispatch({ type: GET_ORDERS_REQUEST });
   return axios
-    .get(`https://an-indian-brand.herokuapp.com/orders`, {
+    .get(`/orders`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + Token,
@@ -30,7 +30,7 @@ export const getOrders = () => async (dispatch) => {
 export const addOrders = (payload) => (dispatch) => {
   dispatch({ type: ADD_ORDERS_REQUEST });
   return axios
-    .post(`https://an-indian-brand.herokuapp.com/orders/addToOrders`, payload, {
+    .post(`/orders/addToOrders`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,

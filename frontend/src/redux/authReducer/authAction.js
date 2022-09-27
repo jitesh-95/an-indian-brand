@@ -12,7 +12,7 @@ import axios from "axios";
 export const register = (payload) => (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   return axios
-    .post("https://an-indian-brand.herokuapp.com/user/register", payload, {
+    .post("/user/register", payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
@@ -24,7 +24,7 @@ export const register = (payload) => (dispatch) => {
 export const login = (payload) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   return axios
-    .post("https://an-indian-brand.herokuapp.com/user/login", payload, {
+    .post("/user/login", payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },

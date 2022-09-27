@@ -25,7 +25,7 @@ export const getProductsFromCart = () => async (dispatch) => {
 
   dispatch({ type: GET_USER_PRODUCTS_REQUEST });
   return axios
-    .get(`https://an-indian-brand.herokuapp.com/cart`, {
+    .get(`/cart`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + Token,
@@ -42,7 +42,7 @@ export const getProductsFromCart = () => async (dispatch) => {
 export const addProductsToCart = (payload) => (dispatch) => {
   dispatch({ type: ADD_USER_PRODUCTS_REQUEST });
   return axios
-    .post(`https://an-indian-brand.herokuapp.com/cart/addToCart`, payload, {
+    .post(`/cart/addToCart`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -59,7 +59,7 @@ export const addProductsToCart = (payload) => (dispatch) => {
 export const deleteCartItem = (id) => (dispatch) => {
   dispatch({ type: DELETE_USER_PRODUCTS_REQUEST });
   return axios
-    .delete(`https://an-indian-brand.herokuapp.com/cart/delete/${id}`, {
+    .delete(`/cart/delete/${id}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -76,7 +76,7 @@ export const deleteCartItem = (id) => (dispatch) => {
 export const updateCartItem = (id, payload) => (dispatch) => {
   dispatch({ type: UPDATE_USER_PRODUCTS_REQUEST });
   return axios
-    .patch(`https://an-indian-brand.herokuapp.com/update/${id}`, payload, {
+    .patch(`/update/${id}`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
@@ -93,7 +93,7 @@ export const updateCartItem = (id, payload) => (dispatch) => {
 export const emptyCart = () => (dispatch) => {
   dispatch({ type: EMPTY_USER_PRODUCTS_REQUEST });
   return axios
-    .get(`https://an-indian-brand.herokuapp.com/cart/empty`, {
+    .get(`/cart/empty`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
