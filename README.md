@@ -116,7 +116,7 @@ AN INDIAN BRAND is MERN Stack e-commerce web application that allows you to buy 
 
 <h2>Demo</h2>
 
-[Click here to see the presentation video of this project](https://www.linkedin.com/posts/m-sehrawat_reactjs-nike-nikecareers-activity-6947552300534042624-me2_?utm_source=linkedin_share&utm_medium=member_desktop_web)
+[Click here to see the presentation video of this project](https://www.linkedin.com/posts/jitesh-sirohi_anabrindianabrbrand-fullstackdeveloper-frontenddeveloper-activity-6980946936128241666-kQXA?utm_source=share&utm_medium=member_desktop)
 
 
 <br />
