@@ -156,7 +156,7 @@ const Payment = () => {
 
   return (
     <Box position="relative" top="220" mb="20rem" fontWeight={600}>
-      <div className="container">
+      <Box w={["100%", "80%", "60%", "45%", "33%"]} m="auto">
         <form id="form" onSubmit={handlePayment}>
           <div id="card">
             <div className="header">
@@ -264,7 +264,7 @@ const Payment = () => {
           )}
           <button>{`Pay using ${cardType}`}</button>
         </form>
-      </div>
+      </Box>
 
       {/* modal for confirmation  */}
       <Modal
