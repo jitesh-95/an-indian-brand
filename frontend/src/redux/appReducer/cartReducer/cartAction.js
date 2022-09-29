@@ -76,7 +76,7 @@ export const deleteCartItem = (id) => (dispatch) => {
 export const updateCartItem = (id, payload) => (dispatch) => {
   dispatch({ type: UPDATE_USER_PRODUCTS_REQUEST });
   return axios
-    .patch(`/update/${id}`, payload, {
+    .patch(`/cart/update/${id}`, payload, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + token,
