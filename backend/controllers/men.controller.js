@@ -3,85 +3,42 @@ const ProductsModel = require("../models/Products.model");
 const menRouter = express.Router();
 
 menRouter.get("/men", async (req, res) => {
-  const { page, sortBy } = req.query;
+  const page = req.query.page || 1;
+  let order = req.query.urlSort || "asc";
+  let sortBy = "_id";
+
+  if (order === "HighToLow") {
+    order = "desc";
+    sortBy = "price";
+  } else if (order === "LowToHigh") {
+    order = "asc";
+    sortBy = "price";
+  } else if (order === "A-Z") {
+    order = "asc";
+    sortBy = "name";
+  } else if (order === "Z-A") {
+    order = "desc";
+    sortBy = "name";
+  }
+
   const limit = 20;
   const skip = (+page - 1) * limit;
-
-  if (sortBy == "null") {
-    const mensProducts = await ProductsModel.find({ category: "men" })
-      .skip(skip)
-      .limit(limit);
-    const totalMensProducts = await ProductsModel.find({ category: "men" });
-    if (mensProducts.length > 0) {
-      return res.send({
-        mensProducts,
-        total: totalMensProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  if (sortBy === "HighToLow") {
+  try {
     const mensProducts = await ProductsModel.find({ category: "men" })
       .skip(skip)
       .limit(limit)
-      .sort({ price: -1 });
-    const totalMensProducts = await ProductsModel.find({ category: "men" });
-    if (mensProducts.length > 0) {
-      return res.send({
-        mensProducts,
-        total: totalMensProducts.length,
-        response: true,
-      });
-    }
+      .sort([[sortBy, order]]);
+    const totalMensProducts = await ProductsModel.countDocuments({
+      category: "men",
+    });
+    return res.send({
+      mensProducts,
+      total: totalMensProducts,
+      response: true,
+    });
+  } catch (err) {
+    res.send({ message: err, response: false });
   }
-
-  if (sortBy === "LowToHigh") {
-    const mensProducts = await ProductsModel.find({ category: "men" })
-      .skip(skip)
-      .limit(limit)
-      .sort({ price: 1 });
-    const totalMensProducts = await ProductsModel.find({ category: "men" });
-    if (mensProducts.length > 0) {
-      return res.send({
-        mensProducts,
-        total: totalMensProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  if (sortBy === "A-Z") {
-    const mensProducts = await ProductsModel.find({ category: "men" })
-      .skip(skip)
-      .limit(limit)
-      .sort({ name: 1 });
-    const totalMensProducts = await ProductsModel.find({ category: "men" });
-    if (mensProducts.length > 0) {
-      return res.send({
-        mensProducts,
-        total: totalMensProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  if (sortBy === "Z-A") {
-    const mensProducts = await ProductsModel.find({ category: "men" })
-      .skip(skip)
-      .limit(limit)
-      .sort({ name: -1 });
-    const totalMensProducts = await ProductsModel.find({ category: "men" });
-    if (mensProducts.length > 0) {
-      return res.send({
-        mensProducts,
-        total: totalMensProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  res.send({ message: "Error", response: false });
 });
 
 module.exports = menRouter;

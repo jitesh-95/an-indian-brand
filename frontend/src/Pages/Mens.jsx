@@ -28,14 +28,15 @@ const Mens = () => {
     const title = "Men's Products | AN INDIAN BRAND";
     document.title = title;
 
-    dispatch(getProductsMen(page, urlSort));
+    const params = { page, urlSort };
+    dispatch(getProductsMen(params));
 
     // setting params
-    const params = {};
-    page && page > 1 && (params.page = page);
-    urlSort && (params.sortBy = urlSort);
+    const urlParams = {};
+    page && page > 1 && (urlParams.page = page);
+    urlSort && (urlParams.sortBy = urlSort);
 
-    setSearchParams(params);
+    setSearchParams(urlParams);
   }, [page, urlSort]);
 
   const handleNext = () => {

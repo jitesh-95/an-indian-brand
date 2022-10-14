@@ -37,14 +37,15 @@ const Womens = () => {
     const title = "Women's Products | AN INDIAN BRAND";
     document.title = title;
 
-    dispatch(getProductsWomen(page, urlSort));
+    const params = { page, urlSort };
+    dispatch(getProductsWomen(params));
 
     // setting params
-    const params = {};
-    page && page > 1 && (params.page = page);
-    urlSort && (params.sortBy = urlSort);
+    const urlParams = {};
+    page && page > 1 && (urlParams.page = page);
+    urlSort && (urlParams.sortBy = urlSort);
 
-    setSearchParams(params);
+    setSearchParams(urlParams);
   }, [page, urlSort]);
 
   const handleNext = () => {

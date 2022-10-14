@@ -3,85 +3,43 @@ const ProductsModel = require("../models/Products.model");
 const kidsRouter = express.Router();
 
 kidsRouter.get("/kids", async (req, res) => {
-  const { page, sortBy } = req.query;
+  const page = req.query.page || 1;
+  let order = req.query.urlSort || "asc";
+  let sortBy = "_id";
+
+  if (order === "HighToLow") {
+    order = "desc";
+    sortBy = "price";
+  } else if (order === "LowToHigh") {
+    order = "asc";
+    sortBy = "price";
+  } else if (order === "A-Z") {
+    order = "asc";
+    sortBy = "name";
+  } else if (order === "Z-A") {
+    order = "desc";
+    sortBy = "name";
+  }
   const limit = 20;
   const skip = (+page - 1) * limit;
 
-  if (sortBy == "null") {
-    const kidsProducts = await ProductsModel.find({ category: "kids" })
-      .skip(skip)
-      .limit(limit);
-    const totalKidsProducts = await ProductsModel.find({ category: "kids" });
-    if (kidsProducts.length > 0) {
-      return res.send({
-        kidsProducts,
-        total: totalKidsProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  if (sortBy === "HighToLow") {
+  try {
     const kidsProducts = await ProductsModel.find({ category: "kids" })
       .skip(skip)
       .limit(limit)
-      .sort({ price: -1 });
-    const totalKidsProducts = await ProductsModel.find({ category: "kids" });
-    if (kidsProducts.length > 0) {
-      return res.send({
-        kidsProducts,
-        total: totalKidsProducts.length,
-        response: true,
-      });
-    }
-  }
+      .sort([[sortBy, order]]);
+    const totalKidsProducts = await ProductsModel.countDocuments({
+      category: "kids",
+    });
 
-  if (sortBy === "LowToHigh") {
-    const kidsProducts = await ProductsModel.find({ category: "kids" })
-      .skip(skip)
-      .limit(limit)
-      .sort({ price: 1 });
-    const totalKidsProducts = await ProductsModel.find({ category: "kids" });
-    if (kidsProducts.length > 0) {
-      return res.send({
-        kidsProducts,
-        total: totalKidsProducts.length,
-        response: true,
-      });
-    }
+    return res.send({
+      kidsProducts,
+      total: totalKidsProducts,
+      response: true,
+    });
+  } catch (err) {
+    res.send({ message: err, response: false });
   }
-
-  if (sortBy === "A-Z") {
-    const kidsProducts = await ProductsModel.find({ category: "kids" })
-      .skip(skip)
-      .limit(limit)
-      .sort({ name: 1 });
-    const totalKidsProducts = await ProductsModel.find({ category: "kids" });
-    if (kidsProducts.length > 0) {
-      return res.send({
-        kidsProducts,
-        total: totalKidsProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  if (sortBy === "Z-A") {
-    const kidsProducts = await ProductsModel.find({ category: "kids" })
-      .skip(skip)
-      .limit(limit)
-      .sort({ name: -1 });
-    const totalKidsProducts = await ProductsModel.find({ category: "kids" });
-    if (kidsProducts.length > 0) {
-      return res.send({
-        kidsProducts,
-        total: totalKidsProducts.length,
-        response: true,
-      });
-    }
-  }
-
-  res.send({ message: "Error", response: false });
 });
 
 module.exports = kidsRouter;
