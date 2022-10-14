@@ -57,6 +57,9 @@ const Home = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // page title
+    const title = "AN INDIAN BRAND";
+    document.title = title;
   }, []);
 
   return (
